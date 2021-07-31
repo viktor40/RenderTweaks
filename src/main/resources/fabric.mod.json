@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "modid",
+  "version": "${version}",
+
+  "name": "RenderTweaks",
+  "description": "A simple mod giving you more power over render options",
+  "authors": [
+    "Viktor40"
+  ],
+  "contact": {
+    "homepage": "https://github.com/viktor40/RenderTweaks",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "MIT",
+  "icon": "assets/RenderTweaks/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "RenderTweaks.ExampleMod"
+    ]
+  },
+  "mixins": [
+    "RenderTweaks.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
