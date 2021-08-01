@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "render_tweaks",
   "version": "${version}",
 
   "name": "RenderTweaks",
@@ -13,14 +13,11 @@
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
 
-  "license": "MIT",
+  "license": "GPL3",
   "icon": "assets/RenderTweaks/icon.png",
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "RenderTweaks.ExampleMod"
-    ]
   },
   "mixins": [
     "RenderTweaks.mixins.json"
@@ -28,7 +25,6 @@
 
   "depends": {
     "fabricloader": ">=0.11.3",
-    "fabric": "*",
     "minecraft": "1.17.x",
     "java": ">=16"
   },

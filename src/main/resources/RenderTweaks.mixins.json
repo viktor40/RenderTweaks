@@ -6,7 +6,13 @@
   "mixins": [
   ],
   "client": [
-    "GameOptionsMixin"
+    "GameOptionsMixin",
+    "KeyBindingMixin",
+    "MinecraftClientMixin",
+    "WorldRendererMixin",
+    "MixinParticleManager",
+    "BackgroundRendererMixin"
+
   ],
   "injectors": {
     "defaultRequire": 1
