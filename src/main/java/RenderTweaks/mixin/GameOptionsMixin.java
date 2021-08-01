@@ -24,18 +24,26 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Mutable
     public KeyBinding[] keysAll;
 
+    @Shadow
+    public double gamma;
+
     public KeyBinding keyRenderWeather;
     public KeyBinding keyRenderBreakingParticles;
     public KeyBinding keyRenderFog;
+    public KeyBinding keyFullBright;
+
+    public double prevGamma;
 
     @Inject(method = "load", at = @At(value = "HEAD"))
     private void onLoadInjectAtHead(CallbackInfo ci) {
         keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
         keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
         keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");
+        keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
         keysAll = ArrayUtils.add(keysAll, keyRenderWeather);
         keysAll = ArrayUtils.add(keysAll, keyRenderBreakingParticles);
         keysAll = ArrayUtils.add(keysAll, keyRenderFog);
+        keysAll = ArrayUtils.add(keysAll, keyFullBright);
     }
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
@@ -57,5 +65,30 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Override
     public KeyBinding getKeyRenderFog() {
         return keyRenderFog;
+    }
+
+    @Override
+    public KeyBinding getKeyFullBright() {
+        return keyFullBright;
+    }
+
+    @Override
+    public double getGamma() {
+        return this.gamma;
+    }
+
+    @Override
+    public double getPrevGamma() {
+        return this.prevGamma;
+    }
+
+    @Override
+    public void setGamma(double gamma) {
+        this.gamma = gamma;
+    }
+
+    @Override
+    public void setPrevGamma(double prevGamma) {
+        this.prevGamma = prevGamma;
     }
 }

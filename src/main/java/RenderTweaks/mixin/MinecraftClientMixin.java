@@ -17,7 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MinecraftClientMixin implements IMinecraftClient {
     public boolean renderWeather;
     public boolean renderBreakingParticles;
+    public boolean renderParticles;
     public boolean renderFog;
+    public boolean fullBright;
 
     @Final
     public GameOptions options;
@@ -50,6 +52,20 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             fogToggled = fogToggled + ((renderFog ? "ON" : "OFF"));
             player.sendMessage(new LiteralText(fogToggled), true);
         }
+
+        // set fullbright
+        while (((IGameOptions)options).getKeyFullBright().wasPressed()) {
+            fullBright = !fullBright;
+            if (fullBright) {
+                ((IGameOptions)options).setPrevGamma(((IGameOptions)options).getGamma());
+                ((IGameOptions)options).setGamma(16);
+            } else {
+                ((IGameOptions)options).setGamma(((IGameOptions)options).getPrevGamma());
+            }
+            String fullBrightToggled = "Toggled fullbright: ";
+            fullBrightToggled = fullBrightToggled + ((fullBright ? "ON" : "OFF"));
+            player.sendMessage(new LiteralText(fullBrightToggled), true);
+        }
     }
 
     @Override
@@ -63,7 +79,17 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     }
 
     @Override
+    public boolean renderParticles() {
+        return renderParticles;
+    }
+
+    @Override
     public boolean renderFog() {
         return renderFog;
+    }
+
+    @Override
+    public boolean fullBright() {
+        return fullBright;
     }
 }

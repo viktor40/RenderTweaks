@@ -16,7 +16,7 @@ public class BackgroundRendererMixin {
     private static void disableFog(Camera camera, FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (!((IMinecraftClient)client).renderFog()) {
-            ci.cancel(); // this injects a return statement
+            ci.cancel();
         }
     }
 }

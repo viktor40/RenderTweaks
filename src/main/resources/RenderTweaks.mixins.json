@@ -10,9 +10,8 @@
     "KeyBindingMixin",
     "MinecraftClientMixin",
     "WorldRendererMixin",
-    "MixinParticleManager",
+    "ParticleManagerMixin",
     "BackgroundRendererMixin"
-
   ],
   "injectors": {
     "defaultRequire": 1
