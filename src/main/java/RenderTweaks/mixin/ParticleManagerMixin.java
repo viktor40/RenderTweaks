@@ -24,7 +24,11 @@ public class ParticleManagerMixin {
     private void cancelParticles(Particle particle, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (!((IMinecraftClient)client).renderWeather() && (particle instanceof BlockLeakParticle)) {
-            ci.cancel();
+            ci.cancel(); // Cancel block leak particles from rain
+        } else if (!((IMinecraftClient)client).renderBreakingParticles() && (particle instanceof CrackParticle)) {
+            ci.cancel(); // Cancel block breaking particles
+        } else if (!((IMinecraftClient)client).renderBreakingParticles() && (particle instanceof BlockDustParticle)) {
+            ci.cancel(); // Cancel block breaking particles
         } else if (!((IMinecraftClient)client).renderParticles()) {
             ci.cancel(); // Cancel all particles
         }
