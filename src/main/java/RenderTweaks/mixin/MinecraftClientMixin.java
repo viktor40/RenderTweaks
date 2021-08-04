@@ -20,6 +20,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     public boolean renderParticles;
     public boolean renderFog;
     public boolean fullBright;
+    public boolean derpyChicken;
 
     @Final
     public GameOptions options;
@@ -73,6 +74,14 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             String fullBrightToggled = "Toggled fullbright: ";
             fullBrightToggled = fullBrightToggled + ((fullBright ? "ON" : "OFF"));
             player.sendMessage(new LiteralText(fullBrightToggled), true);
+        }
+
+        // Enable Derpy Chicken
+        while (((IGameOptions)options).getKeyDerpyChicken().wasPressed()) {
+            derpyChicken = !derpyChicken;
+            String derpyChickenToggled = "Toggled Derpy Chicken: ";
+            derpyChickenToggled = derpyChickenToggled + ((fullBright ? "ON" : "OFF"));
+            player.sendMessage(new LiteralText(derpyChickenToggled), true);
         }
     }
 
