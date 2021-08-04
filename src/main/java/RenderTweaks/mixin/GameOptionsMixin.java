@@ -29,6 +29,7 @@ public abstract class GameOptionsMixin implements IGameOptions {
 
     public KeyBinding keyRenderWeather;
     public KeyBinding keyRenderBreakingParticles;
+    public KeyBinding keyRenderParticles;
     public KeyBinding keyRenderFog;
     public KeyBinding keyFullBright;
 
@@ -38,12 +39,14 @@ public abstract class GameOptionsMixin implements IGameOptions {
     private void onLoadInjectAtHead(CallbackInfo ci) {
         keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
         keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
+        keyRenderParticles = new KeyBinding("Toggle Particles", GLFW.GLFW_KEY_P, "RenderTweaks");
         keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");
         keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
         keysAll = ArrayUtils.add(keysAll, keyRenderWeather);
         keysAll = ArrayUtils.add(keysAll, keyRenderBreakingParticles);
         keysAll = ArrayUtils.add(keysAll, keyRenderFog);
         keysAll = ArrayUtils.add(keysAll, keyFullBright);
+        keysAll = ArrayUtils.add(keysAll, keyRenderParticles);
     }
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
@@ -60,6 +63,11 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Override
     public KeyBinding getKeyRenderBreakingParticles() {
         return keyRenderBreakingParticles;
+    }
+
+    @Override
+    public KeyBinding getKeyRenderParticles() {
+        return keyRenderParticles;
     }
 
     @Override

@@ -45,6 +45,14 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             player.sendMessage(new LiteralText(breakingParticlesToggled), true);
         }
 
+        // render particles keybind
+        while (((IGameOptions)options).getKeyRenderParticles().wasPressed()) {
+            renderParticles = !renderParticles;
+            String particlesToggled = "Toggled particle rendering: ";
+            particlesToggled = particlesToggled + ((renderParticles ? "ON" : "OFF"));
+            player.sendMessage(new LiteralText(particlesToggled), true);
+        }
+
         // render overworld fog
         while (((IGameOptions)options).getKeyRenderFog().wasPressed()) {
             renderFog = !renderFog;

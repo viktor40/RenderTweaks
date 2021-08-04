@@ -3,9 +3,7 @@ package RenderTweaks.mixin;
 import RenderTweaks.IMinecraftClient;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.particle.BlockLeakParticle;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.*;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +26,7 @@ public class ParticleManagerMixin {
         if (!((IMinecraftClient)client).renderWeather() && (particle instanceof BlockLeakParticle)) {
             ci.cancel();
         } else if (!((IMinecraftClient)client).renderParticles()) {
-            ci.cancel();
+            ci.cancel(); // Cancel all particles
         }
     }
 }
