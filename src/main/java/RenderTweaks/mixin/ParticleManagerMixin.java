@@ -23,7 +23,7 @@ public class ParticleManagerMixin {
     @Inject(method = "addParticle(Lnet/minecraft/client/particle/Particle;)V", at = @At("HEAD"), cancellable = true)
     private void cancelParticles(Particle particle, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();
-        if (!((IMinecraftClient)client).renderWeather() && (particle instanceof BlockLeakParticle)) {
+        if (!((IMinecraftClient)client).renderWeather() && (particle instanceof BlockLeakParticle.Dripping)) {
             ci.cancel(); // Cancel block leak particles from rain
         } else if (!((IMinecraftClient)client).renderBreakingParticles() && (particle instanceof CrackParticle)) {
             ci.cancel(); // Cancel block breaking particles
