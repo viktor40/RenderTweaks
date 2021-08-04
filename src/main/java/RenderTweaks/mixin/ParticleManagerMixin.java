@@ -27,8 +27,6 @@ public class ParticleManagerMixin {
             ci.cancel(); // Cancel block leak particles from rain
         } else if (!((IMinecraftClient)client).renderBreakingParticles() && (particle instanceof CrackParticle)) {
             ci.cancel(); // Cancel block breaking particles
-        } else if (!((IMinecraftClient)client).renderBreakingParticles() && (particle instanceof BlockDustParticle)) {
-            ci.cancel(); // Cancel block breaking particles
         } else if (!((IMinecraftClient)client).renderParticles()) {
             ci.cancel(); // Cancel all particles
         }

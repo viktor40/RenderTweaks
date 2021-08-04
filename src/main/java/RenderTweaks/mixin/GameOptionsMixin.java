@@ -32,21 +32,25 @@ public abstract class GameOptionsMixin implements IGameOptions {
     public KeyBinding keyRenderParticles;
     public KeyBinding keyRenderFog;
     public KeyBinding keyFullBright;
+    public KeyBinding keyDerpyChicken;
 
     public double prevGamma;
 
     @Inject(method = "load", at = @At(value = "HEAD"))
     private void onLoadInjectAtHead(CallbackInfo ci) {
+        // rework this to make it compact and shit
         keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
         keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
         keyRenderParticles = new KeyBinding("Toggle Particles", GLFW.GLFW_KEY_P, "RenderTweaks");
         keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");
         keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
+        keyDerpyChicken = new KeyBinding("Toggle Derpy Chicken", GLFW.GLFW_KEY_C, "RenderTweaks");
         keysAll = ArrayUtils.add(keysAll, keyRenderWeather);
         keysAll = ArrayUtils.add(keysAll, keyRenderBreakingParticles);
         keysAll = ArrayUtils.add(keysAll, keyRenderFog);
         keysAll = ArrayUtils.add(keysAll, keyFullBright);
         keysAll = ArrayUtils.add(keysAll, keyRenderParticles);
+        keysAll = ArrayUtils.add(keysAll, keyDerpyChicken);
     }
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
@@ -78,6 +82,11 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Override
     public KeyBinding getKeyFullBright() {
         return keyFullBright;
+    }
+
+    @Override
+    public KeyBinding getKeyDerpyChicken() {
+        return keyDerpyChicken;
     }
 
     @Override

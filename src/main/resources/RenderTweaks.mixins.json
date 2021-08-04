@@ -4,14 +4,15 @@
   "package": "RenderTweaks.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "ChickenEntityMixin"
   ],
   "client": [
+    "BackgroundRendererMixin",
     "GameOptionsMixin",
     "KeyBindingMixin",
     "MinecraftClientMixin",
-    "WorldRendererMixin",
     "ParticleManagerMixin",
-    "BackgroundRendererMixin"
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

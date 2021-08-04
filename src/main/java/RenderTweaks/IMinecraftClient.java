@@ -6,4 +6,5 @@ public interface IMinecraftClient {
     boolean renderParticles();
     boolean renderFog();
     boolean fullBright();
+    boolean derpyChicken();
 }

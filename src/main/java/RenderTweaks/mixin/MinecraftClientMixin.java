@@ -100,4 +100,9 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     public boolean fullBright() {
         return fullBright;
     }
+
+    @Override
+    public boolean derpyChicken() {
+        return fullBright;
+    }
 }
