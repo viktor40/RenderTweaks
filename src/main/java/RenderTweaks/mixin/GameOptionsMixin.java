@@ -41,10 +41,10 @@ public abstract class GameOptionsMixin implements IGameOptions {
         // rework this to make it compact and shit
         keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
         keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
-        keyRenderParticles = new KeyBinding("Toggle Particles", GLFW.GLFW_KEY_P, "RenderTweaks");
+        keyRenderParticles = new KeyBinding("Toggle Particles", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
         keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");
         keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
-        keyDerpyChicken = new KeyBinding("Toggle Derpy Chicken", GLFW.GLFW_KEY_C, "RenderTweaks");
+        keyDerpyChicken = new KeyBinding("Toggle Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
         keysAll = ArrayUtils.add(keysAll, keyRenderWeather);
         keysAll = ArrayUtils.add(keysAll, keyRenderBreakingParticles);
         keysAll = ArrayUtils.add(keysAll, keyRenderFog);
