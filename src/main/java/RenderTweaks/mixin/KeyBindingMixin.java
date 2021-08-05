@@ -18,7 +18,7 @@ public class KeyBindingMixin {
     private static Map<String, Integer> categoryOrderMap;
 
     @Inject(method = "<clinit>", at = @At(value = "RETURN"))
-    private static void onClientInitInjectAtReturn(CallbackInfo ci) {
+    private static void onClassInitInjectAtReturn(CallbackInfo ci) {
         categoryOrderMap.put("RenderTweaks", categoryOrderMap.size() + 1);
     }
 }
