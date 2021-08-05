@@ -3,8 +3,8 @@ package RenderTweaks.mixin;
 import RenderTweaks.IGameOptions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.Option;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.option.Option;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
@@ -27,24 +27,17 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Shadow
     public double gamma;
 
-    public KeyBinding keyRenderWeather;
-    public KeyBinding keyRenderBreakingParticles;
-    public KeyBinding keyRenderParticles;
-    public KeyBinding keyRenderFog;
-    public KeyBinding keyFullBright;
-    public KeyBinding keyDerpyChicken;
+    public KeyBinding keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
+    public KeyBinding keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
+    public KeyBinding keyRenderParticles = new KeyBinding("Toggle Particles", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
+    public KeyBinding keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");;
+    public KeyBinding keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
+    public KeyBinding keyDerpyChicken = new KeyBinding("Toggle Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
 
     public double prevGamma;
 
     @Inject(method = "load", at = @At(value = "HEAD"))
     private void onLoadInjectAtHead(CallbackInfo ci) {
-        // rework this to make it compact and shit
-        keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
-        keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
-        keyRenderParticles = new KeyBinding("Toggle Particles", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
-        keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");
-        keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
-        keyDerpyChicken = new KeyBinding("Toggle Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
         keysAll = ArrayUtils.add(keysAll, keyRenderWeather);
         keysAll = ArrayUtils.add(keysAll, keyRenderBreakingParticles);
         keysAll = ArrayUtils.add(keysAll, keyRenderFog);
@@ -56,7 +49,6 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void onGameOptionsInitInjectAtTail(MinecraftClient client, File optionsFile, CallbackInfo ci) {
         Option.RENDER_DISTANCE.setMax(64);
-
     }
 
     @Override
