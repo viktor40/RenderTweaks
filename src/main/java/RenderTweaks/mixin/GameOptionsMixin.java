@@ -27,10 +27,10 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Shadow public double gamma;
     public boolean enableWeather = true;
     public boolean derpyChicken = true;
+    public double gammaOverride = 0.0D;
+    public double prevGamma = 1.0D;
 
     public KeyBinding keyOptionScreen = new KeyBinding("Open Option Screen", GLFW.GLFW_KEY_O, "RenderTweaks");
-
-    public double prevGamma;
 
     @Inject(method = "load", at = @At(value = "HEAD"))
     private void onLoadInjectAtHead(CallbackInfo ci) {
@@ -58,6 +58,11 @@ public abstract class GameOptionsMixin implements IGameOptions {
     }
 
     @Override
+    public double gammaOverride() {
+        return gammaOverride;
+    }
+
+    @Override
     public boolean isWeatherEnabled() {
         return enableWeather;
     }
@@ -75,6 +80,11 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Override
     public double getPrevGamma() {
         return this.prevGamma;
+    }
+
+    @Override
+    public void setGammaOverride(double isGammaOverride) {
+        this.gammaOverride = isGammaOverride;
     }
 
     @Override

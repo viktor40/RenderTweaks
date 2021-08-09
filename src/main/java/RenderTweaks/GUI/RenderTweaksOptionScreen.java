@@ -9,19 +9,22 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
 public class RenderTweaksOptionScreen extends Screen {
-    private Option[] OPTIONS = new Option[]{RenderTweakOptions.RAIN, RenderTweakOptions.DERPY_CHICKEN};
+    private final Option[] OPTIONS = new Option[]{RenderTweakOptions.WEATHER, RenderTweakOptions.DERPY_CHICKEN};
     private ButtonListWidget list;
 
     public RenderTweaksOptionScreen() {
-        super(new TranslatableText("RenderTweaks.option.screen_title"));
+        super(new TranslatableText("Render Tweaks Options"));
     }
 
     protected void init() {
         this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
+        this.list.addSingleOptionEntry(RenderTweakOptions.GAMMA_OVERRIDE);
         this.list.addAll(OPTIONS);
         this.addSelectableChild(this.list);
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
-            this.client.setScreen((Screen)null);
+            if (this.client != null) {
+                this.client.setScreen((Screen)null);
+            }
         }));
     }
 
