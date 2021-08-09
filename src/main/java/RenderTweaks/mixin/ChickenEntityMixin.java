@@ -1,7 +1,8 @@
 package RenderTweaks.mixin;
 
-import RenderTweaks.IMinecraftClient;
+import RenderTweaks.IGameOptions;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.ChickenEntity;
@@ -24,8 +25,8 @@ public abstract class ChickenEntityMixin extends AnimalEntity {
 
     @Inject(method = "tickMovement", at = @At("RETURN"))
     private void derpyChickenHead(CallbackInfo ci) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (!((IMinecraftClient)client).derpyChicken()) {
+        GameOptions options = MinecraftClient.getInstance().options;
+        if (((IGameOptions)options).isDerpyChicken()) {
             this.setRotation(0,-90F);
         }
     }

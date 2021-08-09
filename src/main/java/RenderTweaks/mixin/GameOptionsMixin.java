@@ -26,25 +26,14 @@ public abstract class GameOptionsMixin implements IGameOptions {
 
     @Shadow public double gamma;
     public boolean enableWeather = true;
+    public boolean derpyChicken = true;
 
-    public KeyBinding keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
-    public KeyBinding keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
-    public KeyBinding keyRenderParticles = new KeyBinding("Toggle Particles", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
-    public KeyBinding keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");;
-    public KeyBinding keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
-    public KeyBinding keyDerpyChicken = new KeyBinding("Toggle Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
     public KeyBinding keyOptionScreen = new KeyBinding("Open Option Screen", GLFW.GLFW_KEY_O, "RenderTweaks");
 
     public double prevGamma;
 
     @Inject(method = "load", at = @At(value = "HEAD"))
     private void onLoadInjectAtHead(CallbackInfo ci) {
-        keysAll = ArrayUtils.add(keysAll, keyRenderWeather);
-        keysAll = ArrayUtils.add(keysAll, keyRenderBreakingParticles);
-        keysAll = ArrayUtils.add(keysAll, keyRenderFog);
-        keysAll = ArrayUtils.add(keysAll, keyFullBright);
-        keysAll = ArrayUtils.add(keysAll, keyRenderParticles);
-        keysAll = ArrayUtils.add(keysAll, keyDerpyChicken);
         keysAll = ArrayUtils.add(keysAll, keyOptionScreen);
     }
 
@@ -54,43 +43,23 @@ public abstract class GameOptionsMixin implements IGameOptions {
     }
 
     @Override
-    public void setEnableWeather(boolean isWeather) {
+    public void setDerpyChicken(boolean isDerpyChicken) {
+        derpyChicken = isDerpyChicken;
+    }
+
+    @Override
+    public void setWeather(boolean isWeather) {
         enableWeather = isWeather;
+    }
+
+    @Override
+    public boolean isDerpyChicken() {
+        return derpyChicken;
     }
 
     @Override
     public boolean isWeatherEnabled() {
         return enableWeather;
-    }
-
-    @Override
-    public KeyBinding getKeyRenderWeather() {
-        return keyRenderWeather;
-    }
-
-    @Override
-    public KeyBinding getKeyRenderBreakingParticles() {
-        return keyRenderBreakingParticles;
-    }
-
-    @Override
-    public KeyBinding getKeyRenderParticles() {
-        return keyRenderParticles;
-    }
-
-    @Override
-    public KeyBinding getKeyRenderFog() {
-        return keyRenderFog;
-    }
-
-    @Override
-    public KeyBinding getKeyFullBright() {
-        return keyFullBright;
-    }
-
-    @Override
-    public KeyBinding getKeyDerpyChicken() {
-        return keyDerpyChicken;
     }
 
     @Override

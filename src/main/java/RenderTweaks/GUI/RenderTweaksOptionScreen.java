@@ -6,14 +6,14 @@ import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 
 public class RenderTweaksOptionScreen extends Screen {
-    private Option[] OPTIONS = new Option[]{RenderTweakOptions.RAIN};
+    private Option[] OPTIONS = new Option[]{RenderTweakOptions.RAIN, RenderTweakOptions.DERPY_CHICKEN};
     private ButtonListWidget list;
 
     public RenderTweaksOptionScreen() {
-        super(new LiteralText("Render Tweaks Options"));
+        super(new TranslatableText("RenderTweaks.option.screen_title"));
     }
 
     protected void init() {
