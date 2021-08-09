@@ -7,4 +7,5 @@ public interface IMinecraftClient {
     boolean renderFog();
     boolean fullBright();
     boolean derpyChicken();
+    boolean optionScreen();
 }

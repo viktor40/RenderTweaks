@@ -9,6 +9,7 @@ public interface IGameOptions {
     KeyBinding getKeyRenderFog();
     KeyBinding getKeyFullBright();
     KeyBinding getKeyDerpyChicken();
+    KeyBinding getKeyOptionScreen();
 
     double getGamma();
     double getPrevGamma();
