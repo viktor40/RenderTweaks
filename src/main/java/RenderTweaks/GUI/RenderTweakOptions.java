@@ -51,14 +51,14 @@ public abstract class RenderTweakOptions extends Option {
                 (gameOptions, option, isParticles) -> {((IGameOptions)gameOptions).setParticlesEnabled(isParticles);}
         );
 
-        PARTICLES_BLOCK_BREAKING = CyclingOption.create("Particles",
-                gameOptions -> ((IGameOptions)gameOptions).isParticlesEnabled(),
-                (gameOptions, option, isParticles) -> {((IGameOptions)gameOptions).setParticlesEnabled(isParticles);}
+        PARTICLES_BLOCK_BREAKING = CyclingOption.create("Block Breaking Particles",
+                gameOptions -> ((IGameOptions)gameOptions).isParticlesBlockBreakingEnabled(),
+                (gameOptions, option, isParticlesBlockBreaking) -> {((IGameOptions)gameOptions).setParticlesBlockBreaking(isParticlesBlockBreaking);}
         );
 
-        FOG = CyclingOption.create("Particles",
-                gameOptions -> ((IGameOptions)gameOptions).isParticlesEnabled(),
-                (gameOptions, option, isParticles) -> {((IGameOptions)gameOptions).setParticlesEnabled(isParticles);}
+        FOG = CyclingOption.create("Fog",
+                gameOptions -> ((IGameOptions)gameOptions).isFogEnabled(),
+                (gameOptions, option, isFog) -> {((IGameOptions)gameOptions).setFog(isFog);}
         );
     }
 

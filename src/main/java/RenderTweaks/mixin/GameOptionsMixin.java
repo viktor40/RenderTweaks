@@ -28,6 +28,8 @@ public abstract class GameOptionsMixin implements IGameOptions {
     public boolean enableWeather = true;
     public boolean derpyChicken = true;
     public boolean particlesEnabled = true;
+    public boolean particlesBlockBreaking = true;
+    public boolean fogEnabled = true;
     public double gammaOverride = 0.0D;
     public double prevGamma = 1.0D;
 
@@ -64,6 +66,16 @@ public abstract class GameOptionsMixin implements IGameOptions {
     }
 
     @Override
+    public void setParticlesBlockBreaking(boolean isParticlesBlockBreaking) {
+        particlesBlockBreaking = isParticlesBlockBreaking;
+    }
+
+    @Override
+    public void setFog(boolean isFOg) {
+        fogEnabled = isFOg;
+    }
+
+    @Override
     public void setGammaOverride(double isGammaOverride) {
         this.gammaOverride = isGammaOverride;
     }
@@ -91,6 +103,16 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Override
     public boolean isParticlesEnabled() {
         return particlesEnabled;
+    }
+
+    @Override
+    public boolean isParticlesBlockBreakingEnabled() {
+        return particlesBlockBreaking;
+    }
+
+    @Override
+    public boolean isFogEnabled() {
+        return fogEnabled;
     }
 
     @Override

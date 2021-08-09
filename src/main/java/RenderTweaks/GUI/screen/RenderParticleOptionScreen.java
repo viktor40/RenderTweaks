@@ -12,7 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
 public class RenderParticleOptionScreen extends GameOptionsScreen {
-    private final Option[] OPTIONS = new Option[]{RenderTweakOptions.PARTICLES};
+    private final Option[] OPTIONS = new Option[]{RenderTweakOptions.PARTICLES, RenderTweakOptions.PARTICLES_BLOCK_BREAKING};
     private ButtonListWidget list;
 
     public RenderParticleOptionScreen(Screen parent, GameOptions options) {

@@ -17,12 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin implements IMinecraftClient {
-    public boolean renderWeather;
-    public boolean renderBreakingParticles;
-    public boolean renderParticles;
-    public boolean renderFog;
-    public boolean fullBright;
-    public boolean derpyChicken;
     public boolean optionScreen;
 
     @Final
@@ -35,7 +29,6 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
 
     @Inject(method = "handleInputEvents", at = @At(value = "HEAD"))
     private void handleKeybinds(CallbackInfo ci) {
-        // Enable Derpy Chicken
         while (((IGameOptions)options).getKeyOptionScreen().wasPressed()) {
             optionScreen = !optionScreen;
             Screen op = new RenderOptionScreen();
@@ -44,28 +37,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
         }
     }
 
-    @Override
-    public boolean renderBreakingParticles() {
-        return renderBreakingParticles;
-    }
-
-    @Override
-    public boolean renderParticles() {
-        return renderParticles;
-    }
-
-    @Override
-    public boolean renderFog() {
-        return renderFog;
-    }
-
-    @Override
-    public boolean derpyChicken() {
-        return derpyChicken;
-    }
-
-    @Override
-    public boolean optionScreen() {
+    public boolean isOptionScreenOpen() {
         return optionScreen;
     }
 }
