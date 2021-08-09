@@ -15,10 +15,10 @@ public class KeyBindingMixin {
 
     @Shadow
     @Final
-    private static Map<String, Integer> categoryOrderMap;
+    private static Map<String, Integer> CATEGORY_ORDER_MAP;
 
     @Inject(method = "<clinit>", at = @At(value = "RETURN"))
     private static void onClassInitInjectAtReturn(CallbackInfo ci) {
-        categoryOrderMap.put("RenderTweaks", categoryOrderMap.size() + 1);
+        CATEGORY_ORDER_MAP.put("RenderTweaks", CATEGORY_ORDER_MAP.size() + 1);
     }
 }
