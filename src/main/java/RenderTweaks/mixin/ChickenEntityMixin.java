@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChickenEntity.class)
 public abstract class ChickenEntityMixin extends AnimalEntity {
-    @Shadow public float field_6741;
-    @Shadow public float field_6737;
+    @Shadow public float flapProgress;
+    @Shadow public float flapSpeed;
 
     protected ChickenEntityMixin(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);

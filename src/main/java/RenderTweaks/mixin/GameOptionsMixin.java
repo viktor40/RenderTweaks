@@ -2,9 +2,9 @@ package RenderTweaks.mixin;
 
 import RenderTweaks.IGameOptions;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.options.KeyBinding;
-import net.minecraft.client.options.Option;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.option.Option;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;

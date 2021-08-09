@@ -1,9 +1,11 @@
 package RenderTweaks.mixin;
 
-import net.minecraft.client.options.DoubleOption;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.options.Option;
-import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.option.DoubleOption;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.Option;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -26,7 +28,7 @@ public class OptionMixin {
             ),
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/options/DoubleOption;<init>(Ljava/lang/String;DDFLjava/util/function/Function;Ljava/util/function/BiConsumer;Ljava/util/function/BiFunction;)V",
+                    target = "Lnet/minecraft/client/option/DoubleOption;<init>(Ljava/lang/String;DDFLjava/util/function/Function;Ljava/util/function/BiConsumer;Ljava/util/function/BiFunction;)V",
                     ordinal = 0
             )
     )
@@ -46,22 +48,21 @@ public class OptionMixin {
             ),
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/options/DoubleOption;<init>(Ljava/lang/String;DDFLjava/util/function/Function;Ljava/util/function/BiConsumer;Ljava/util/function/BiFunction;)V",
+                    target = "Lnet/minecraft/client/option/DoubleOption;<init>(Ljava/lang/String;DDFLjava/util/function/Function;Ljava/util/function/BiConsumer;Ljava/util/function/BiFunction;)V",
                     ordinal = 0
             )
     )
-    private static BiFunction<GameOptions, DoubleOption, String> addFullbrightOptionText(BiFunction<GameOptions, DoubleOption, String> original) {
+    private static BiFunction<GameOptions, DoubleOption, Text> addFullbrightOptionText(BiFunction<GameOptions, DoubleOption, Text> original) {
         return (gameOptions, option) -> {
             double d = option.getRatio(option.get(gameOptions));
-            String string = option.getDisplayPrefix();
             if (d == 0.0D) {
-                return string + I18n.translate("options.gamma.min", new Object[0]);
+                return option.getGenericLabel(new TranslatableText("options.gamma.min"));
             } else if (d > (1.0D / MAX_GAMMA_MULTIPLIER - 0.002) && d < (1.0D / MAX_GAMMA_MULTIPLIER + 0.002) ) {
-                return string + I18n.translate("options.gamma.max", new Object[0]);
+                return option.getGenericLabel(new TranslatableText("options.gamma.max"));
             } else if (d == 1.0) {
-                return string + "Fullbright";
+                return option.getGenericLabel(new LiteralText("Fullbright"));
             } else {
-                return string + "+" + (int)(d * 100.0D * MAX_GAMMA_MULTIPLIER) + "%";
+                return option.getPercentAdditionLabel((int)(d * MAX_GAMMA_MULTIPLIER * 100));
             }
         };
     }
