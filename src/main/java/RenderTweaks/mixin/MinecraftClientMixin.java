@@ -1,6 +1,6 @@
 package RenderTweaks.mixin;
 
-import RenderTweaks.GUI.RenderTweaksOptionScreen;
+import RenderTweaks.GUI.screen.RenderOptionScreen;
 import RenderTweaks.IGameOptions;
 import RenderTweaks.IMinecraftClient;
 import net.minecraft.client.MinecraftClient;
@@ -38,15 +38,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
         // Enable Derpy Chicken
         while (((IGameOptions)options).getKeyOptionScreen().wasPressed()) {
             optionScreen = !optionScreen;
-            Screen op = new RenderTweaksOptionScreen();
+            Screen op = new RenderOptionScreen();
             op.renderBackgroundTexture(0);
             setScreen(op);
         }
-    }
-
-    @Override
-    public boolean renderWeather() {
-        return renderWeather;
     }
 
     @Override

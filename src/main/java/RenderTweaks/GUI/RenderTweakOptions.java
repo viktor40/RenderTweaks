@@ -9,6 +9,9 @@ import net.minecraft.text.LiteralText;
 public abstract class RenderTweakOptions extends Option {
     public static final CyclingOption<Boolean> WEATHER;
     public static final CyclingOption<Boolean> DERPY_CHICKEN;
+    public static final CyclingOption<Boolean> PARTICLES;
+    public static final CyclingOption<Boolean> PARTICLES_BLOCK_BREAKING;
+    public static final CyclingOption<Boolean> FOG;
 
     public RenderTweakOptions(String key) {
         super(key);
@@ -41,6 +44,21 @@ public abstract class RenderTweakOptions extends Option {
         DERPY_CHICKEN = CyclingOption.create("Derpy Chicken",
                 gameOptions -> ((IGameOptions)gameOptions).isDerpyChicken(),
                 (gameOptions, option, isDerpyChicken) -> {((IGameOptions)gameOptions).setDerpyChicken(isDerpyChicken);}
+        );
+
+        PARTICLES = CyclingOption.create("Particles",
+                gameOptions -> ((IGameOptions)gameOptions).isParticlesEnabled(),
+                (gameOptions, option, isParticles) -> {((IGameOptions)gameOptions).setParticlesEnabled(isParticles);}
+        );
+
+        PARTICLES_BLOCK_BREAKING = CyclingOption.create("Particles",
+                gameOptions -> ((IGameOptions)gameOptions).isParticlesEnabled(),
+                (gameOptions, option, isParticles) -> {((IGameOptions)gameOptions).setParticlesEnabled(isParticles);}
+        );
+
+        FOG = CyclingOption.create("Particles",
+                gameOptions -> ((IGameOptions)gameOptions).isParticlesEnabled(),
+                (gameOptions, option, isParticles) -> {((IGameOptions)gameOptions).setParticlesEnabled(isParticles);}
         );
     }
 

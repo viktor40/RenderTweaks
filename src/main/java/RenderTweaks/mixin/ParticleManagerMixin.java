@@ -30,11 +30,11 @@ public class ParticleManagerMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         GameOptions options = MinecraftClient.getInstance().options;
         if (!((IGameOptions)options).isWeatherEnabled() && (particle instanceof BlockLeakParticle.Dripping)) {
-            ci.cancel(); // Cancel block leak particles from rain
+            ci.cancel(); // Cancel block leak particlesEnabled from rain
         } else if (!((IMinecraftClient)client).renderBreakingParticles() && (particle instanceof CrackParticle)) {
-            ci.cancel(); // Cancel block breaking particles
-        } else if (!((IMinecraftClient)client).renderParticles()) {
-            ci.cancel(); // Cancel all particles
+            ci.cancel(); // Cancel block breaking particlesEnabled
+        } else if (!((IGameOptions)options).isParticlesEnabled()) {
+            ci.cancel(); // Cancel all particlesEnabled
         }
     }
 }

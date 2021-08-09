@@ -27,6 +27,7 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Shadow public double gamma;
     public boolean enableWeather = true;
     public boolean derpyChicken = true;
+    public boolean particlesEnabled = true;
     public double gammaOverride = 0.0D;
     public double prevGamma = 1.0D;
 
@@ -43,6 +44,11 @@ public abstract class GameOptionsMixin implements IGameOptions {
     }
 
     @Override
+    public KeyBinding getKeyOptionScreen() {
+        return keyOptionScreen;
+    }
+
+    @Override
     public void setDerpyChicken(boolean isDerpyChicken) {
         derpyChicken = isDerpyChicken;
     }
@@ -53,33 +59,8 @@ public abstract class GameOptionsMixin implements IGameOptions {
     }
 
     @Override
-    public boolean isDerpyChicken() {
-        return derpyChicken;
-    }
-
-    @Override
-    public double gammaOverride() {
-        return gammaOverride;
-    }
-
-    @Override
-    public boolean isWeatherEnabled() {
-        return enableWeather;
-    }
-
-    @Override
-    public KeyBinding getKeyOptionScreen() {
-        return keyOptionScreen;
-    }
-
-    @Override
-    public double getGamma() {
-        return this.gamma;
-    }
-
-    @Override
-    public double getPrevGamma() {
-        return this.prevGamma;
+    public void setParticlesEnabled(boolean isParticles) {
+        particlesEnabled = isParticles;
     }
 
     @Override
@@ -96,4 +77,35 @@ public abstract class GameOptionsMixin implements IGameOptions {
     public void setPrevGamma(double prevGamma) {
         this.prevGamma = prevGamma;
     }
+
+    @Override
+    public boolean isDerpyChicken() {
+        return derpyChicken;
+    }
+
+    @Override
+    public boolean isWeatherEnabled() {
+        return enableWeather;
+    }
+
+    @Override
+    public boolean isParticlesEnabled() {
+        return particlesEnabled;
+    }
+
+    @Override
+    public double gammaOverride() {
+        return gammaOverride;
+    }
+
+    @Override
+    public double getGamma() {
+        return this.gamma;
+    }
+
+    @Override
+    public double getPrevGamma() {
+        return this.prevGamma;
+    }
+
 }

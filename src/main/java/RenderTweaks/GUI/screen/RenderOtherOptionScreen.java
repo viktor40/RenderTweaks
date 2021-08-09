@@ -1,31 +1,33 @@
-package RenderTweaks.GUI;
+package RenderTweaks.GUI.screen;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
+import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
-public class RenderTweaksOptionScreen extends Screen {
-    private final Option[] OPTIONS = new Option[]{RenderTweakOptions.WEATHER, RenderTweakOptions.DERPY_CHICKEN};
+public class RenderOtherOptionScreen extends GameOptionsScreen {
+    private final Option[] OPTIONS = new Option[]{};
     private ButtonListWidget list;
 
-    public RenderTweaksOptionScreen() {
-        super(new TranslatableText("Render Tweaks Options"));
+    public RenderOtherOptionScreen(Screen parent, GameOptions options) {
+        super(parent, options, new TranslatableText("Enviroment Options"));
     }
 
     protected void init() {
         this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
-        this.list.addSingleOptionEntry(RenderTweakOptions.GAMMA_OVERRIDE);
         this.list.addAll(OPTIONS);
         this.addSelectableChild(this.list);
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
-            if (this.client != null) {
-                this.client.setScreen((Screen)null);
-            }
-        }));
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.BACK,
+                (button) -> {
+                    if (this.client != null) {
+                        this.client.setScreen(this.parent);
+                    }
+                }));
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
