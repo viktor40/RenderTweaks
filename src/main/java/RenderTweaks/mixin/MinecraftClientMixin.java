@@ -4,7 +4,7 @@ import RenderTweaks.IGameOptions;
 import RenderTweaks.IMinecraftClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.text.LiteralText;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,7 +35,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             renderWeather = !renderWeather;
             String weatherToggled = "Toggled weather rendering: ";
             weatherToggled = weatherToggled + ((renderWeather ? "ON" : "OFF"));
-            player.sendMessage(new LiteralText(weatherToggled), true);
+            player.addChatMessage(new LiteralText(weatherToggled), true);
         }
 
         // render block breaking particles keybind
@@ -43,7 +43,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             renderBreakingParticles = !renderBreakingParticles;
             String breakingParticlesToggled = "Toggled block breaking particle rendering: ";
             breakingParticlesToggled = breakingParticlesToggled + ((renderBreakingParticles ? "ON" : "OFF"));
-            player.sendMessage(new LiteralText(breakingParticlesToggled), true);
+            player.addChatMessage(new LiteralText(breakingParticlesToggled), true);
         }
 
         // render particles keybind
@@ -51,7 +51,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             renderParticles = !renderParticles;
             String particlesToggled = "Toggled particle rendering: ";
             particlesToggled = particlesToggled + ((renderParticles ? "ON" : "OFF"));
-            player.sendMessage(new LiteralText(particlesToggled), true);
+            player.addChatMessage(new LiteralText(particlesToggled), true);
         }
 
         // render overworld fog
@@ -59,7 +59,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             renderFog = !renderFog;
             String fogToggled = "Toggled fog rendering: ";
             fogToggled = fogToggled + ((renderFog ? "ON" : "OFF"));
-            player.sendMessage(new LiteralText(fogToggled), true);
+            player.addChatMessage(new LiteralText(fogToggled), true);
         }
 
         // set fullbright
@@ -73,7 +73,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             }
             String fullBrightToggled = "Toggled fullbright: ";
             fullBrightToggled = fullBrightToggled + ((fullBright ? "ON" : "OFF"));
-            player.sendMessage(new LiteralText(fullBrightToggled), true);
+            player.addChatMessage(new LiteralText(fullBrightToggled), true);
         }
 
         // Enable Derpy Chicken
@@ -81,7 +81,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             derpyChicken = !derpyChicken;
             String derpyChickenToggled = "Toggled Derpy Chicken: ";
             derpyChickenToggled = derpyChickenToggled + ((fullBright ? "ON" : "OFF"));
-            player.sendMessage(new LiteralText(derpyChickenToggled), true);
+            player.addChatMessage(new LiteralText(derpyChickenToggled), true);
         }
     }
 

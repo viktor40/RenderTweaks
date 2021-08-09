@@ -1,6 +1,6 @@
 package RenderTweaks;
 
-import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.options.KeyBinding;
 
 public interface IGameOptions {
     KeyBinding getKeyRenderWeather();

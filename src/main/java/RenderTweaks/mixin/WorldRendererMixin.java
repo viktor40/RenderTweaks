@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
-    @Inject(method = "tickRainSplashing", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "method_22713", at = @At("HEAD"), cancellable = true)
     private void cancelRainSplashing(Camera camera, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (!((IMinecraftClient)client).renderWeather()) {

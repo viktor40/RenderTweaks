@@ -1,10 +1,10 @@
 plugins {
-	id 'fabric-loom' version '0.9.+'
+	id 'fabric-loom' version '0.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
-loom {
-	accessWidenerPath = file("src/main/resources/RenderTweaks.accesswidener")
+minecraft {
+	accessWidener "src/main/resources/RenderTweaks.accesswidener"
 }
 
 sourceCompatibility = JavaVersion.VERSION_16
@@ -51,7 +51,7 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
 
 	// Minecraft 1.17 (21w19a) upwards uses Java 16.
-	it.options.release = 16
+	it.options.release = 8
 }
 
 java {

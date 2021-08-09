@@ -1,6 +1,6 @@
 package RenderTweaks.mixin;
 
-import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.options.KeyBinding;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,10 +15,10 @@ public class KeyBindingMixin {
 
     @Shadow
     @Final
-    private static Map<String, Integer> CATEGORY_ORDER_MAP;
+    private static Map<String, Integer> categoryOrderMap;
 
     @Inject(method = "<clinit>", at = @At(value = "RETURN"))
     private static void onClassInitInjectAtReturn(CallbackInfo ci) {
-        CATEGORY_ORDER_MAP.put("RenderTweaks", CATEGORY_ORDER_MAP.size() + 1);
+        categoryOrderMap.put("RenderTweaks", categoryOrderMap.size() + 1);
     }
 }
