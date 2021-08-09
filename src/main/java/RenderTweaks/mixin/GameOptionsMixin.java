@@ -24,8 +24,8 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Mutable
     public KeyBinding[] keysAll;
 
-    @Shadow
-    public double gamma;
+    @Shadow public double gamma;
+    public boolean enableWeather = true;
 
     public KeyBinding keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
     public KeyBinding keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
@@ -33,6 +33,7 @@ public abstract class GameOptionsMixin implements IGameOptions {
     public KeyBinding keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");;
     public KeyBinding keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
     public KeyBinding keyDerpyChicken = new KeyBinding("Toggle Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
+    public KeyBinding keyOptionScreen = new KeyBinding("Open Option Screen", GLFW.GLFW_KEY_O, "RenderTweaks");
 
     public double prevGamma;
 
@@ -44,11 +45,22 @@ public abstract class GameOptionsMixin implements IGameOptions {
         keysAll = ArrayUtils.add(keysAll, keyFullBright);
         keysAll = ArrayUtils.add(keysAll, keyRenderParticles);
         keysAll = ArrayUtils.add(keysAll, keyDerpyChicken);
+        keysAll = ArrayUtils.add(keysAll, keyOptionScreen);
     }
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void onGameOptionsInitInjectAtTail(MinecraftClient client, File optionsFile, CallbackInfo ci) {
         Option.RENDER_DISTANCE.setMax(64);
+    }
+
+    @Override
+    public void setEnableWeather(boolean isWeather) {
+        enableWeather = isWeather;
+    }
+
+    @Override
+    public boolean isWeatherEnabled() {
+        return enableWeather;
     }
 
     @Override
@@ -79,6 +91,11 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Override
     public KeyBinding getKeyDerpyChicken() {
         return keyDerpyChicken;
+    }
+
+    @Override
+    public KeyBinding getKeyOptionScreen() {
+        return keyOptionScreen;
     }
 
     @Override

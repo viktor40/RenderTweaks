@@ -2,10 +2,13 @@ package RenderTweaks.mixin;
 
 import RenderTweaks.IGameOptions;
 import RenderTweaks.IMinecraftClient;
+import RenderTweaks.GUI.RenderTweaksOptionScreen;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.LiteralText;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,6 +24,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     public boolean renderFog;
     public boolean fullBright;
     public boolean derpyChicken;
+    public boolean optionScreen;
 
     @Final
     public GameOptions options;
@@ -28,16 +32,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     @Shadow
     public ClientPlayerEntity player;
 
+    @Shadow public abstract void setScreen(@Nullable Screen screen);
+
     @Inject(method = "handleInputEvents", at = @At(value = "HEAD"))
     private void handleKeybinds(CallbackInfo ci) {
-        // render weather keybind
-        while (((IGameOptions)options).getKeyRenderWeather().wasPressed()) {
-            renderWeather = !renderWeather;
-            String weatherToggled = "Toggled weather rendering: ";
-            weatherToggled = weatherToggled + ((renderWeather ? "ON" : "OFF"));
-            player.sendMessage(new LiteralText(weatherToggled), true);
-        }
-
         // render block breaking particles keybind
         while (((IGameOptions)options).getKeyRenderBreakingParticles().wasPressed()) {
             renderBreakingParticles = !renderBreakingParticles;
@@ -83,6 +81,14 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             derpyChickenToggled = derpyChickenToggled + ((fullBright ? "ON" : "OFF"));
             player.sendMessage(new LiteralText(derpyChickenToggled), true);
         }
+
+        // Enable Derpy Chicken
+        while (((IGameOptions)options).getKeyOptionScreen().wasPressed()) {
+            optionScreen = !optionScreen;
+            Screen op = new RenderTweaksOptionScreen();
+            op.renderBackgroundTexture(0);
+            setScreen(op);
+        }
     }
 
     @Override
@@ -113,5 +119,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     @Override
     public boolean derpyChicken() {
         return derpyChicken;
+    }
+
+    @Override
+    public boolean optionScreen() {
+        return optionScreen;
     }
 }

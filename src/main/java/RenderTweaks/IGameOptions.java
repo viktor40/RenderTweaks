@@ -14,6 +14,9 @@ public interface IGameOptions {
     double getGamma();
     double getPrevGamma();
 
+    boolean isWeatherEnabled();
+    void setEnableWeather(boolean isWeather);
+
     void setPrevGamma(double prevGamma);
     void setGamma(double gamma);
 }
