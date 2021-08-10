@@ -10,5 +10,6 @@ public class RenderTweakGameOptions extends GameOptions {
     public RenderTweakGameOptions(MinecraftClient client, File optionsFile) {
         super(client, optionsFile);
     }
+
 }
 
