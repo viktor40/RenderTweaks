@@ -1,6 +1,8 @@
 package RenderTweaks.GUI.screen;
 
 import RenderTweaks.GUI.RenderTweakOptions;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
@@ -11,6 +13,7 @@ import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
+@Environment(EnvType.CLIENT)
 public class RenderEnvironmentOptionScreen extends GameOptionsScreen {
     private final Option[] OPTIONS = new Option[]{RenderTweakOptions.WEATHER, RenderTweakOptions.FOG};
     private ButtonListWidget list;
