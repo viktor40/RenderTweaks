@@ -1,17 +1,26 @@
 package RenderTweaks.GUI;
 
 import RenderTweaks.IGameOptions;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.option.CyclingOption;
 import net.minecraft.client.option.DoubleOption;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.Option;
 import net.minecraft.text.LiteralText;
+import org.apache.commons.lang3.ArrayUtils;
+import org.lwjgl.glfw.GLFW;
 
+@Environment(EnvType.CLIENT)
 public abstract class RenderTweakOptions extends Option {
     public static final CyclingOption<Boolean> WEATHER;
     public static final CyclingOption<Boolean> DERPY_CHICKEN;
     public static final CyclingOption<Boolean> PARTICLES;
     public static final CyclingOption<Boolean> PARTICLES_BLOCK_BREAKING;
     public static final CyclingOption<Boolean> FOG;
+
+    public static final KeyBinding keyFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");
+    public static KeyBinding[] keysRender = (KeyBinding[]) ArrayUtils.addAll((Object[])(new KeyBinding[]{keyFog}));
 
     public RenderTweakOptions(String key) {
         super(key);

@@ -1,5 +1,7 @@
 package RenderTweaks.GUI.screen;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -7,6 +9,7 @@ import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
+@Environment(EnvType.CLIENT)
 public class RenderOptionScreen extends Screen {
     private final Option[] OPTIONS = new Option[]{};
 
@@ -40,6 +43,13 @@ public class RenderOptionScreen extends Screen {
                 (button) -> {
                     if (this.client != null) {
                         this.client.setScreen(new RenderOtherOptionScreen(this, this.client.options));
+                    }
+                }));
+
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20, new TranslatableText("Keybinds"),
+                (button) -> {
+                    if (this.client != null) {
+                        this.client.setScreen(new RenderKeyBindingScreen(this, this.client.options));
                     }
                 }));
 
