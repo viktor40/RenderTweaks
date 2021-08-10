@@ -1,6 +1,6 @@
 package RenderTweaks.mixin;
 
-import RenderTweaks.IGameOptions;
+import RenderTweaks.interfaces.IGameOptions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.BackgroundRenderer;

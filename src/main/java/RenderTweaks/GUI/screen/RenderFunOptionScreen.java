@@ -1,5 +1,6 @@
 package RenderTweaks.GUI.screen;
 
+import RenderTweaks.interfaces.IGameOptions;
 import RenderTweaks.option.RenderTweakOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,6 +31,8 @@ public class RenderFunOptionScreen extends GameOptionsScreen {
                 (button) -> {
                     if (this.client != null) {
                         this.client.setScreen(this.parent);
+                        ((IGameOptions)(this.client.options)).storeOptionChanges();
+                        ((IGameOptions)(this.client.options)).getConfig().writeConfigs();
                     }
                 }));
     }
@@ -39,5 +42,13 @@ public class RenderFunOptionScreen extends GameOptionsScreen {
         this.list.render(matrices, mouseX, mouseY, delta);
         drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 15, 16777215);
         super.render(matrices, mouseX, mouseY, delta);
+    }
+
+    public void onClose() {
+        super.onClose();
+        if (this.client != null) {
+            ((IGameOptions) (this.client.options)).storeOptionChanges();
+            ((IGameOptions) (this.client.options)).getConfig().writeConfigs();
+        }
     }
 }

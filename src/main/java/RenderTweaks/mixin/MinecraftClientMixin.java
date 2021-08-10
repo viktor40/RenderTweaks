@@ -1,8 +1,8 @@
 package RenderTweaks.mixin;
 
 import RenderTweaks.GUI.screen.RenderOptionScreen;
-import RenderTweaks.IGameOptions;
-import RenderTweaks.IMinecraftClient;
+import RenderTweaks.interfaces.IGameOptions;
+import RenderTweaks.interfaces.IMinecraftClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;

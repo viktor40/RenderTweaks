@@ -1,6 +1,6 @@
 package RenderTweaks.mixin;
 
-import RenderTweaks.IGameOptions;
+import RenderTweaks.interfaces.IGameOptions;
 import net.minecraft.client.option.DoubleOption;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;
@@ -64,7 +64,7 @@ public class OptionMixin {
                 gameOptions.gamma = gamma;
                 ((IGameOptions)gameOptions).setPrevGamma(gamma);
             } else {
-                gameOptions.gamma = ((IGameOptions)gameOptions).gammaOverride();;
+                gameOptions.gamma = ((IGameOptions)gameOptions).gammaOverride();
             }
         };
     }

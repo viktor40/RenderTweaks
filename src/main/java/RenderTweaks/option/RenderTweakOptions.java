@@ -1,6 +1,6 @@
 package RenderTweaks.option;
 
-import RenderTweaks.IGameOptions;
+import RenderTweaks.interfaces.IGameOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.option.CyclingOption;

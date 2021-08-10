@@ -1,6 +1,6 @@
 package RenderTweaks.mixin;
 
-import RenderTweaks.IGameOptions;
+import RenderTweaks.interfaces.IGameOptions;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
