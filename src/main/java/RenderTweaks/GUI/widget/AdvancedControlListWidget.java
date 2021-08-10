@@ -1,6 +1,6 @@
-package RenderTweaks.GUI.screen.widget;
+package RenderTweaks.GUI.widget;
 
-import RenderTweaks.GUI.RenderTweakOptions;
+import RenderTweaks.option.RenderTweakOptions;
 import RenderTweaks.GUI.screen.RenderKeyBindingScreen;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
@@ -36,24 +36,21 @@ public class AdvancedControlListWidget extends ElementListWidget<ControlsListWid
         KeyBinding[] keyBindings = (KeyBinding[])ArrayUtils.clone((Object[]) RenderTweakOptions.keysRender);
         Arrays.sort(keyBindings);
         String string = null;
-        KeyBinding[] var5 = keyBindings;
-        int var6 = keyBindings.length;
 
-        for(int var7 = 0; var7 < var6; ++var7) {
-            KeyBinding keyBinding = var5[var7];
+        for (KeyBinding keyBinding : keyBindings) {
             String string2 = keyBinding.getCategory();
             if (!string2.equals(string)) {
                 string = string2;
-                this.addEntry(new AdvancedControlListWidget.CategoryEntry(new TranslatableText(string2)));
+                this.addEntry(new CategoryEntry(new TranslatableText(string2)));
             }
 
             Text text = new TranslatableText(keyBinding.getTranslationKey());
-            int i = client.textRenderer.getWidth((StringVisitable)text);
+            int i = client.textRenderer.getWidth(text);
             if (i > this.maxKeyNameLength) {
                 this.maxKeyNameLength = i;
             }
 
-            this.addEntry(new AdvancedControlListWidget.KeyBindingEntry(keyBinding, text));
+            this.addEntry(new KeyBindingEntry(keyBinding, text));
         }
 
     }
@@ -73,16 +70,16 @@ public class AdvancedControlListWidget extends ElementListWidget<ControlsListWid
 
         public CategoryEntry(Text text) {
             this.text = text;
-            this.textWidth = AdvancedControlListWidget.this.client.textRenderer.getWidth((StringVisitable)this.text);
+            this.textWidth = AdvancedControlListWidget.this.client.textRenderer.getWidth(this.text);
         }
 
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             TextRenderer var10000 = AdvancedControlListWidget.this.client.textRenderer;
-            Text var10002 = this.text;
+            assert AdvancedControlListWidget.this.client.currentScreen != null;
             float var10003 = (float)(AdvancedControlListWidget.this.client.currentScreen.width / 2 - this.textWidth / 2);
             int var10004 = y + entryHeight;
             Objects.requireNonNull(AdvancedControlListWidget.this.client.textRenderer);
-            var10000.draw(matrices, var10002, var10003, (float)(var10004 - 9 - 1), 16777215);
+            var10000.draw(matrices, this.text, var10003, (float)(var10004 - 9 - 1), 16777215);
         }
 
         public boolean changeFocus(boolean lookForwards) {
@@ -116,11 +113,9 @@ public class AdvancedControlListWidget extends ElementListWidget<ControlsListWid
         KeyBindingEntry(KeyBinding binding, Text bindingName) {
             this.binding = binding;
             this.bindingName = bindingName;
-            this.editButton = new ButtonWidget(0, 0, 75, 20, bindingName, (button) -> {
-                AdvancedControlListWidget.this.parent.focusedBinding = binding;
-            }) {
+            this.editButton = new ButtonWidget(0, 0, 75, 20, bindingName, (button) -> AdvancedControlListWidget.this.parent.focusedBinding = binding) {
                 protected MutableText getNarrationMessage() {
-                    return binding.isUnbound() ? new TranslatableText("narrator.controls.unbound", new Object[]{bindingName}) : new TranslatableText("narrator.controls.bound", new Object[]{bindingName, super.getNarrationMessage()});
+                    return binding.isUnbound() ? new TranslatableText("narrator.controls.unbound", bindingName) : new TranslatableText("narrator.controls.bound", bindingName, super.getNarrationMessage());
                 }
             };
             this.resetButton = new ButtonWidget(0, 0, 50, 20, new TranslatableText("controls.reset"), (button) -> {
@@ -128,7 +123,7 @@ public class AdvancedControlListWidget extends ElementListWidget<ControlsListWid
                 KeyBinding.updateKeysByCode();
             }) {
                 protected MutableText getNarrationMessage() {
-                    return new TranslatableText("narrator.controls.reset", new Object[]{bindingName});
+                    return new TranslatableText("narrator.controls.reset", bindingName);
                 }
             };
         }
@@ -136,11 +131,10 @@ public class AdvancedControlListWidget extends ElementListWidget<ControlsListWid
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             boolean bl = AdvancedControlListWidget.this.parent.focusedBinding == this.binding;
             TextRenderer var10000 = AdvancedControlListWidget.this.client.textRenderer;
-            Text var10002 = this.bindingName;
             float var10003 = (float)(x + 90 - AdvancedControlListWidget.this.maxKeyNameLength);
             int var10004 = y + entryHeight / 2;
             Objects.requireNonNull(AdvancedControlListWidget.this.client.textRenderer);
-            var10000.draw(matrices, var10002, var10003, (float)(var10004 - 9 / 2), 16777215);
+            var10000.draw(matrices, this.bindingName, var10003, (float)(var10004 - 9 / 2), 16777215);
             this.resetButton.x = x + 190;
             this.resetButton.y = y;
             this.resetButton.active = !this.binding.isDefault();
@@ -153,8 +147,7 @@ public class AdvancedControlListWidget extends ElementListWidget<ControlsListWid
                 KeyBinding[] var13 = RenderTweakOptions.keysRender;
                 int var14 = var13.length;
 
-                for(int var15 = 0; var15 < var14; ++var15) {
-                    KeyBinding keyBinding = var13[var15];
+                for (KeyBinding keyBinding : var13) {
                     if (keyBinding != this.binding && this.binding.equals(keyBinding)) {
                         bl2 = true;
                         break;

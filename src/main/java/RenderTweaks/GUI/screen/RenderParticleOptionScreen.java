@@ -1,6 +1,6 @@
 package RenderTweaks.GUI.screen;
 
-import RenderTweaks.GUI.RenderTweakOptions;
+import RenderTweaks.option.RenderTweakOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;

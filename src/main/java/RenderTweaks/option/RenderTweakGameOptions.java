@@ -1,4 +1,4 @@
-package RenderTweaks.GUI;
+package RenderTweaks.option;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;

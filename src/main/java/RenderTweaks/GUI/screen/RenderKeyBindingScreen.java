@@ -1,7 +1,7 @@
 package RenderTweaks.GUI.screen;
 
-import RenderTweaks.GUI.RenderTweakOptions;
-import RenderTweaks.GUI.screen.widget.AdvancedControlListWidget;
+import RenderTweaks.option.RenderTweakOptions;
+import RenderTweaks.GUI.widget.AdvancedControlListWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -26,7 +26,7 @@ public class RenderKeyBindingScreen extends GameOptionsScreen {
     protected void init() {
         this.keyBindingListWidget = new AdvancedControlListWidget(this, this.client);
         this.addSelectableChild(this.keyBindingListWidget);
-        this.resetButton = (ButtonWidget)this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, new TranslatableText("controls.resetAll"), (button) -> {
+        this.resetButton = this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, new TranslatableText("controls.resetAll"), (button) -> {
 
             for (KeyBinding keyBinding : RenderTweakOptions.keysRender) {
                 keyBinding.setBoundKey(keyBinding.getDefaultKey());
@@ -35,9 +35,9 @@ public class RenderKeyBindingScreen extends GameOptionsScreen {
             KeyBinding.updateKeysByCode();
         }));
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, ScreenTexts.DONE, (button) -> {
-            this.client.setScreen(this.parent);
-        }));
+        if (this.client != null) {
+            this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, ScreenTexts.DONE, (button) -> this.client.setScreen(this.parent)));
+        }
     }
 
     @Override
