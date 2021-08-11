@@ -1,6 +1,7 @@
 package RenderTweaks.mixin;
 
-import RenderTweaks.IGameOptions;
+import RenderTweaks.interfaces.IGameOptions;
+import RenderTweaks.option.RenderTweaksConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
@@ -16,79 +17,138 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.File;
+import java.util.LinkedHashMap;
 
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin implements IGameOptions {
-    @Shadow
-    @Final
-    @Mutable
-    public KeyBinding[] keysAll;
+    @Shadow @Final @Mutable public KeyBinding[] keysAll;
 
-    @Shadow
-    public double gamma;
+    public RenderTweaksConfig config;
+    public LinkedHashMap<String, Boolean> booleanOptions = new LinkedHashMap<>();
+    public LinkedHashMap<String, Double> doubleOptions = new LinkedHashMap<>();
 
-    public KeyBinding keyRenderWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_R, "RenderTweaks");
-    public KeyBinding keyRenderBreakingParticles = new KeyBinding("Toggle Block Breaking Particles", GLFW.GLFW_KEY_B, "RenderTweaks");
-    public KeyBinding keyRenderParticles = new KeyBinding("Toggle Particles", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
-    public KeyBinding keyRenderFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");;
-    public KeyBinding keyFullBright = new KeyBinding("Toggle Fullbright", GLFW.GLFW_KEY_H, "RenderTweaks");
-    public KeyBinding keyDerpyChicken = new KeyBinding("Toggle Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
+    @Shadow public double gamma;
+    @Shadow protected MinecraftClient client;
+    public GameOptions thisGameOptions = (GameOptions)(Object)this;
+    public boolean enableWeather;
+    public boolean fogEnabled;
+    public boolean particlesEnabled;
+    public boolean particlesBlockBreaking;
+    public boolean derpyChicken;
+    public double gammaOverride = 0.0D;
+    public double prevGamma = 1.0D;
 
-    public double prevGamma;
-
-    @Inject(method = "load", at = @At(value = "HEAD"))
-    private void onLoadInjectAtHead(CallbackInfo ci) {
-        keysAll = ArrayUtils.add(keysAll, keyRenderWeather);
-        keysAll = ArrayUtils.add(keysAll, keyRenderBreakingParticles);
-        keysAll = ArrayUtils.add(keysAll, keyRenderFog);
-        keysAll = ArrayUtils.add(keysAll, keyFullBright);
-        keysAll = ArrayUtils.add(keysAll, keyRenderParticles);
-        keysAll = ArrayUtils.add(keysAll, keyDerpyChicken);
-    }
+    public KeyBinding keyOptionScreen = new KeyBinding("Open Option Screen", GLFW.GLFW_KEY_O, "RenderTweaks");
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void onGameOptionsInitInjectAtTail(MinecraftClient client, File optionsFile, CallbackInfo ci) {
         Option.RENDER_DISTANCE.setMax(64);
     }
 
-    @Override
-    public KeyBinding getKeyRenderWeather() {
-        return keyRenderWeather;
+    @Inject(method = "load", at = @At(value = "HEAD"))
+    private void onLoadInjectAtHead(CallbackInfo ci) {
+        keysAll = ArrayUtils.add(keysAll, keyOptionScreen);
+        initOptionMaps();
+        config = new RenderTweaksConfig(new File(this.client.runDirectory, "RenderTweakoptions.txt"), (GameOptions)(Object)this);
+        config.loadConfigs();
+        assignOptions();
+    }
+
+    private void initOptionMaps() {
+        booleanOptions.put("environment.weather", true);
+        booleanOptions.put("environment.fog", true);
+        booleanOptions.put("particles.all", true);
+        booleanOptions.put("particles.blockBreaking", true);
+        booleanOptions.put("fun.derpyChicken", false);
+
+        doubleOptions.put("environment.gammaOverride", 0.0D);
+        doubleOptions.put("environment.prevGamma", 0.0D);
+    }
+
+    private void assignOptions() {
+        try {
+            this.enableWeather = booleanOptions.get("environment.weather");
+            this.fogEnabled = booleanOptions.get("environment.fog");
+            this.particlesEnabled = booleanOptions.get("particles.all");
+            this.particlesBlockBreaking = booleanOptions.get("particles.blockBreaking");
+            this.derpyChicken = booleanOptions.get("fun.derpyChicken");
+
+            this.gammaOverride = doubleOptions.get("environment.gammaOverride");
+            this.prevGamma = doubleOptions.get("environment.prevGamma");
+        } catch (Exception e) {
+            this.config.writeConfigs();
+        }
+    }
+
+    public void storeOptionChanges() {
+        booleanOptions.put("environment.weather", enableWeather);
+        booleanOptions.put("environment.fog", fogEnabled);
+        booleanOptions.put("particles.all", particlesEnabled);
+        booleanOptions.put("particles.blockBreaking", particlesBlockBreaking);
+        booleanOptions.put("fun.derpyChicken", derpyChicken);
+
+        doubleOptions.put("environment.gammaOverride", gammaOverride);
+        doubleOptions.put("environment.prevGamma", prevGamma);
     }
 
     @Override
-    public KeyBinding getKeyRenderBreakingParticles() {
-        return keyRenderBreakingParticles;
+    public void loadBooleanOptions(String key, boolean value) {
+        booleanOptions.put(key, value);
     }
 
     @Override
-    public KeyBinding getKeyRenderParticles() {
-        return keyRenderParticles;
+    public void loadDoubleOptions(String key, double value) {
+        doubleOptions.put(key, value);
     }
 
     @Override
-    public KeyBinding getKeyRenderFog() {
-        return keyRenderFog;
+    public LinkedHashMap<String, Boolean> getBooleanOptions() {
+        return this.booleanOptions;
     }
 
     @Override
-    public KeyBinding getKeyFullBright() {
-        return keyFullBright;
+    public LinkedHashMap<String, Double> getDoubleOptions() {
+        return this.doubleOptions;
     }
 
     @Override
-    public KeyBinding getKeyDerpyChicken() {
-        return keyDerpyChicken;
+    public RenderTweaksConfig getConfig() {
+        return this.config;
     }
 
     @Override
-    public double getGamma() {
-        return this.gamma;
+    public KeyBinding getKeyOptionScreen() {
+        return keyOptionScreen;
     }
 
     @Override
-    public double getPrevGamma() {
-        return this.prevGamma;
+    public void setDerpyChicken(boolean isDerpyChicken) {
+        derpyChicken = isDerpyChicken;
+    }
+
+    @Override
+    public void setWeather(boolean isWeather) {
+        enableWeather = isWeather;
+    }
+
+    @Override
+    public void setParticlesEnabled(boolean isParticles) {
+        particlesEnabled = isParticles;
+    }
+
+    @Override
+    public void setParticlesBlockBreaking(boolean isParticlesBlockBreaking) {
+        particlesBlockBreaking = isParticlesBlockBreaking;
+    }
+
+    @Override
+    public void setFog(boolean isFOg) {
+        fogEnabled = isFOg;
+    }
+
+    @Override
+    public void setGammaOverride(double isGammaOverride) {
+        this.gammaOverride = isGammaOverride;
     }
 
     @Override
@@ -100,4 +160,40 @@ public abstract class GameOptionsMixin implements IGameOptions {
     public void setPrevGamma(double prevGamma) {
         this.prevGamma = prevGamma;
     }
+
+    @Override
+    public boolean isDerpyChicken() {
+        return derpyChicken;
+    }
+
+    @Override
+    public boolean isWeatherEnabled() {
+        return enableWeather;
+    }
+
+    @Override
+    public boolean isParticlesEnabled() {
+        return particlesEnabled;
+    }
+
+    @Override
+    public boolean isParticlesBlockBreakingEnabled() {
+        return particlesBlockBreaking;
+    }
+
+    @Override
+    public boolean isFogEnabled() {
+        return fogEnabled;
+    }
+
+    @Override
+    public double gammaOverride() {
+        return gammaOverride;
+    }
+
+    @Override
+    public double getPrevGamma() {
+        return this.prevGamma;
+    }
+
 }
