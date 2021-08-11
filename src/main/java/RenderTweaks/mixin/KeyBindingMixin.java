@@ -12,10 +12,7 @@ import java.util.Map;
 
 @Mixin(KeyBinding.class)
 public class KeyBindingMixin {
-
-    @Shadow
-    @Final
-    private static Map<String, Integer> CATEGORY_ORDER_MAP;
+    @Shadow @Final private static Map<String, Integer> CATEGORY_ORDER_MAP;
 
     @Inject(method = "<clinit>", at = @At(value = "RETURN"))
     private static void onClassInitInjectAtReturn(CallbackInfo ci) {

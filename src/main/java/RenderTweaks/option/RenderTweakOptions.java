@@ -18,7 +18,6 @@ public abstract class RenderTweakOptions extends Option {
     public static final CyclingOption<Boolean> PARTICLES;
     public static final CyclingOption<Boolean> PARTICLES_BLOCK_BREAKING;
     public static final CyclingOption<Boolean> FOG;
-
     public static final KeyBinding keyFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");
     public static KeyBinding[] keysRender = (KeyBinding[]) ArrayUtils.addAll((Object[])(new KeyBinding[]{keyFog}));
 

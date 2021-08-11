@@ -22,13 +22,11 @@ import java.util.LinkedHashMap;
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin implements IGameOptions {
     @Shadow @Final @Mutable public KeyBinding[] keysAll;
-
+    @Shadow public double gamma;
+    @Shadow protected MinecraftClient client;
     public RenderTweaksConfig config;
     public LinkedHashMap<String, Boolean> booleanOptions = new LinkedHashMap<>();
     public LinkedHashMap<String, Double> doubleOptions = new LinkedHashMap<>();
-
-    @Shadow public double gamma;
-    @Shadow protected MinecraftClient client;
     public GameOptions thisGameOptions = (GameOptions)(Object)this;
     public boolean enableWeather;
     public boolean fogEnabled;

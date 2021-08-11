@@ -13,10 +13,13 @@ public interface IGameOptions {
     boolean isParticlesEnabled();
     boolean isParticlesBlockBreakingEnabled();
     boolean isFogEnabled();
+
     double getPrevGamma();
     double gammaOverride();
+
     LinkedHashMap<String, Boolean> getBooleanOptions();
     LinkedHashMap<String, Double> getDoubleOptions();
+
     RenderTweaksConfig getConfig();
 
     void setDerpyChicken(boolean isDerpyChicken);

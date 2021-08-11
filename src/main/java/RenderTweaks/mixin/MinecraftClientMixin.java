@@ -17,15 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin implements IMinecraftClient {
-    public boolean optionScreen;
-
-    @Final
-    public GameOptions options;
-
-    @Shadow
-    public ClientPlayerEntity player;
-
+    @Final @Shadow public GameOptions options;
+    @Shadow public ClientPlayerEntity player;
     @Shadow public abstract void setScreen(@Nullable Screen screen);
+    public boolean optionScreen;
 
     @Inject(method = "handleInputEvents", at = @At(value = "HEAD"))
     private void handleKeybinds(CallbackInfo ci) {

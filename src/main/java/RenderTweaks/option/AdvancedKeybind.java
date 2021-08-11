@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedKeybind implements Comparable<KeyBinding> {
-
     @Override
     public int compareTo(@NotNull KeyBinding keyBinding) {
         return 0;
