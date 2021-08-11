@@ -19,7 +19,7 @@ public class RenderOtherOptionScreen extends GameOptionsScreen {
     private ButtonListWidget list;
 
     public RenderOtherOptionScreen(Screen parent, GameOptions options) {
-        super(parent, options, new TranslatableText("Enviroment Options"));
+        super(parent, options, new TranslatableText("Other Options"));
     }
 
     protected void init() {
