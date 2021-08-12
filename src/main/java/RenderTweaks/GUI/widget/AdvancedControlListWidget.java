@@ -1,7 +1,8 @@
 package RenderTweaks.GUI.widget;
 
 import RenderTweaks.GUI.screen.RenderKeyBindingScreen;
-import RenderTweaks.option.RenderTweakOptions;
+import RenderTweaks.option.RenderTweakGameOptions;
+import RenderTweaks.option.TripleKeyBinding;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,7 +22,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import org.apache.commons.lang3.ArrayUtils;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,20 +29,23 @@ import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedControlListWidget extends ElementListWidget<AdvancedControlListWidget.Entry> {
+    public RenderTweakGameOptions renderTweakGameOptions;
     final RenderKeyBindingScreen parent;
     int maxKeyNameLength;
 
-    public AdvancedControlListWidget(RenderKeyBindingScreen parent, MinecraftClient client) {
+
+    public AdvancedControlListWidget(RenderKeyBindingScreen parent, MinecraftClient client, RenderTweakGameOptions renderTweakGameOptions) {
         super(client, parent.width + 45, parent.height, 43, parent.height - 32, 20);
+        this.renderTweakGameOptions = renderTweakGameOptions;
         this.parent = parent;
-        KeyBinding[] keyBindings = (KeyBinding[])ArrayUtils.clone((Object[]) RenderTweakOptions.keysRender);
+        TripleKeyBinding[] tripleKeyBindings = (TripleKeyBinding[])ArrayUtils.clone((Object[]) this.renderTweakGameOptions.keysRender);
         String string = null;
 
-        for (KeyBinding keyBinding : keyBindings) {
-            String string2 = keyBinding.getCategory();
-            if (!string2.equals(string)) {
-                string = string2;
-                this.addEntry(new AdvancedControlListWidget.CategoryEntry(new TranslatableText(string2)));
+        for (TripleKeyBinding keyBinding : tripleKeyBindings) {
+            String category = keyBinding.getCategory();
+            if (!category.equals(string)) {
+                string = category;
+                this.addEntry(new AdvancedControlListWidget.CategoryEntry(new TranslatableText(category)));
             }
 
             Text text = new TranslatableText(keyBinding.getTranslationKey());
@@ -51,9 +54,8 @@ public class AdvancedControlListWidget extends ElementListWidget<AdvancedControl
                 this.maxKeyNameLength = i;
             }
 
-            this.addEntry(new AdvancedControlListWidget.KeyBindingEntry(keyBinding, text));
+            this.addEntry(new AdvancedControlListWidget.KeyBindingEntry(keyBinding, text, this.renderTweakGameOptions));
         }
-
     }
 
     protected int getScrollbarPositionX() {
@@ -106,17 +108,23 @@ public class AdvancedControlListWidget extends ElementListWidget<AdvancedControl
 
     @Environment(EnvType.CLIENT)
     public class KeyBindingEntry extends AdvancedControlListWidget.Entry {
+        private final TripleKeyBinding tripleBinding;
         private final KeyBinding binding1;
-        private final KeyBinding binding2 = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");
-        private final KeyBinding binding3 = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_UNKNOWN, "RenderTweaks");;
+        private final KeyBinding binding2;
+        private final KeyBinding binding3;
         private final Text bindingName;
         private final ButtonWidget key1Button;
         private final ButtonWidget key2Button;
         private final ButtonWidget key3Button;
         private final ButtonWidget resetButton;
+        private final RenderTweakGameOptions renderTweakGameOptions;
 
-        KeyBindingEntry(KeyBinding binding1, Text bindingName) {
-            this.binding1 = binding1;
+        KeyBindingEntry(TripleKeyBinding binding, Text bindingName, RenderTweakGameOptions renderTweakGameOptions) {
+            this.renderTweakGameOptions = renderTweakGameOptions;
+            this.tripleBinding = binding;
+            this.binding1 = binding.getKeyBinding1();
+            this.binding2 = binding.getKeyBinding2();
+            this.binding3 = binding.getKeyBinding3();
             this.bindingName = bindingName;
             this.key1Button = new ButtonWidget(0, 0, 75, 20, bindingName, (button) -> AdvancedControlListWidget.this.parent.focusedBinding1 = binding1) {
                 protected MutableText getNarrationMessage() {
@@ -165,11 +173,9 @@ public class AdvancedControlListWidget extends ElementListWidget<AdvancedControl
             this.key1Button.setMessage(this.binding1.getBoundKeyLocalizedText());
             boolean bl2 = false;
             if (!this.binding1.isUnbound()) {
-                KeyBinding[] var13 = RenderTweakOptions.keysRender;
-                int var14 = var13.length;
-
-                for (KeyBinding keyBinding : var13) {
-                    if (keyBinding != this.binding1 && this.binding1.equals(keyBinding)) {
+                TripleKeyBinding[] keyBinds = this.renderTweakGameOptions.keysRender;
+                for (TripleKeyBinding keyBinding : keyBinds) {
+                    if (keyBinding.getKeyBinding1() != this.binding1 && this.binding1.equals(keyBinding.getKeyBinding1())) {
                         bl2 = true;
                         break;
                     }
@@ -189,11 +195,9 @@ public class AdvancedControlListWidget extends ElementListWidget<AdvancedControl
             this.key2Button.setMessage(this.binding2.getBoundKeyLocalizedText());
             boolean bl3 = false;
             if (!this.binding2.isUnbound()) {
-                KeyBinding[] var13 = RenderTweakOptions.keysRender;
-                int var14 = var13.length;
-
-                for (KeyBinding keyBinding : var13) {
-                    if (keyBinding != this.binding2 && this.binding2.equals(keyBinding)) {
+                TripleKeyBinding[] keyBinds = this.renderTweakGameOptions.keysRender;
+                for (TripleKeyBinding keyBinding : keyBinds) {
+                    if (keyBinding.getKeyBinding2() != this.binding1 && this.binding1.equals(keyBinding.getKeyBinding2())) {
                         bl3 = true;
                         break;
                     }
@@ -213,11 +217,9 @@ public class AdvancedControlListWidget extends ElementListWidget<AdvancedControl
             this.key3Button.setMessage(this.binding3.getBoundKeyLocalizedText());
             boolean bl4 = false;
             if (!this.binding3.isUnbound()) {
-                KeyBinding[] var13 = RenderTweakOptions.keysRender;
-                int var14 = var13.length;
-
-                for (KeyBinding keyBinding : var13) {
-                    if (keyBinding != this.binding3 && this.binding3.equals(keyBinding)) {
+                TripleKeyBinding[] keyBinds = this.renderTweakGameOptions.keysRender;
+                for (TripleKeyBinding keyBinding : keyBinds) {
+                    if (keyBinding.getKeyBinding2() != this.binding3 && this.binding3.equals(keyBinding.getKeyBinding2())) {
                         bl4 = true;
                         break;
                     }

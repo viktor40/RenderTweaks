@@ -1,7 +1,8 @@
 package RenderTweaks.GUI.screen;
 
 import RenderTweaks.GUI.widget.AdvancedControlListWidget;
-import RenderTweaks.option.RenderTweakOptions;
+import RenderTweaks.option.RenderTweakGameOptions;
+import RenderTweaks.option.TripleKeyBinding;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -22,20 +23,24 @@ public class RenderKeyBindingScreen extends GameOptionsScreen {
     public KeyBinding focusedBinding2;
     public KeyBinding focusedBinding3;
     public long time;
+    public RenderTweakGameOptions renderTweakGameOptions;
     private AdvancedControlListWidget keyBindingListWidget;
     private ButtonWidget resetButton;
 
-    public RenderKeyBindingScreen(Screen parent, GameOptions options) {
+    public RenderKeyBindingScreen(Screen parent, GameOptions options, RenderTweakGameOptions renderTweakGameOptions) {
         super(parent, options, new TranslatableText("Render Tweak Options"));
+        this.renderTweakGameOptions = renderTweakGameOptions;
     }
 
     protected void init() {
-        this.keyBindingListWidget = new AdvancedControlListWidget(this, this.client);
+        this.keyBindingListWidget = new AdvancedControlListWidget(this, this.client, this.renderTweakGameOptions);
         this.addSelectableChild(this.keyBindingListWidget);
         this.resetButton = this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, new TranslatableText("controls.resetAll"), (button) -> {
 
-            for (KeyBinding keyBinding : RenderTweakOptions.keysRender) {
-                keyBinding.setBoundKey(keyBinding.getDefaultKey());
+            for (TripleKeyBinding keyBinding : this.renderTweakGameOptions.keysRender) {
+                keyBinding.getKeyBinding1().setBoundKey(keyBinding.getKeyBinding1().getDefaultKey());
+                keyBinding.getKeyBinding2().setBoundKey(keyBinding.getKeyBinding3().getDefaultKey());
+                keyBinding.getKeyBinding2().setBoundKey(keyBinding.getKeyBinding3().getDefaultKey());
             }
             KeyBinding.updateKeysByCode();
         }));
@@ -110,12 +115,16 @@ public class RenderKeyBindingScreen extends GameOptionsScreen {
         this.renderBackground(matrices);
         this.keyBindingListWidget.render(matrices, mouseX, mouseY, delta);
         drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 8, 16777215);
-
-        for (KeyBinding keyBinding : RenderTweakOptions.keysRender) {
-            keyBinding.setBoundKey(keyBinding.getDefaultKey());
+        boolean isDefaultKey = false;
+        for (KeyBinding keyBinding : this.gameOptions.keysAll) {
+            if (!keyBinding.isDefault()) {
+                isDefaultKey = true;
+                break;
+            }
         }
 
-        KeyBinding.updateKeysByCode();
+        this.resetButton.active = isDefaultKey;
+
         super.render(matrices, mouseX, mouseY, delta);
     }
 }

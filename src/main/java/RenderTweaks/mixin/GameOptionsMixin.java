@@ -1,6 +1,8 @@
 package RenderTweaks.mixin;
 
 import RenderTweaks.interfaces.IGameOptions;
+import RenderTweaks.interfaces.IMinecraftClient;
+import RenderTweaks.option.RenderTweakGameOptions;
 import RenderTweaks.option.RenderTweaksConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
@@ -28,6 +30,7 @@ public abstract class GameOptionsMixin implements IGameOptions {
     public LinkedHashMap<String, Boolean> booleanOptions = new LinkedHashMap<>();
     public LinkedHashMap<String, Double> doubleOptions = new LinkedHashMap<>();
     public GameOptions thisGameOptions = (GameOptions)(Object)this;
+    public RenderTweakGameOptions renderTweakGameOptions;
     public boolean enableWeather;
     public boolean fogEnabled;
     public boolean particlesEnabled;
@@ -41,13 +44,15 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void onGameOptionsInitInjectAtTail(MinecraftClient client, File optionsFile, CallbackInfo ci) {
         Option.RENDER_DISTANCE.setMax(64);
+        this.renderTweakGameOptions = new RenderTweakGameOptions(this.client);
+        ((IMinecraftClient)(this.client)).setRenderTweakGameOptions(this.renderTweakGameOptions);
     }
 
     @Inject(method = "load", at = @At(value = "HEAD"))
     private void onLoadInjectAtHead(CallbackInfo ci) {
         keysAll = ArrayUtils.add(keysAll, keyOptionScreen);
         initOptionMaps();
-        config = new RenderTweaksConfig(new File(this.client.runDirectory, "RenderTweakoptions.txt"), (GameOptions)(Object)this);
+        config = new RenderTweaksConfig(new File(this.client.runDirectory, "RenderTweakoptions.txt"), thisGameOptions);
         config.loadConfigs();
         assignOptions();
     }
