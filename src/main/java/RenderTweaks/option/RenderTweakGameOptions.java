@@ -15,7 +15,7 @@ public class RenderTweakGameOptions {
 
     public RenderTweakGameOptions(MinecraftClient client) {
         this.client = client;
-        this.keyFog = new TripleKeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "Environment");
+        this.keyFog = new TripleKeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, GLFW.GLFW_KEY_H, "Environment");
         this.keyWeather = new TripleKeyBinding("Toggle Weather", GLFW.GLFW_KEY_UNKNOWN, "Environment");
         this.keyParticles = new TripleKeyBinding("Disable Particles", GLFW.GLFW_KEY_P, "Particles");
         this.keyParticlesBlockBreaking = new TripleKeyBinding("Disable Block Breaking Particles", GLFW.GLFW_KEY_UNKNOWN, "Particles");

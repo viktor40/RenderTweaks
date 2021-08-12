@@ -37,7 +37,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
 
         while (renderTweakGameOptions.keyFog.wasTripleKeyBindingPressed()) {
             keyFog = !keyFog;
-            String fogToggled = "Toggled particle rendering: ";
+            String fogToggled = "Toggled fog rendering: ";
             fogToggled = fogToggled + ((keyFog ? "ON" : "OFF"));
             player.sendMessage(new LiteralText(fogToggled), true);
         }
