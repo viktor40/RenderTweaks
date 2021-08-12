@@ -3,7 +3,7 @@ package RenderTweaks.mixin;
 import RenderTweaks.GUI.screen.RenderOptionScreen;
 import RenderTweaks.interfaces.IGameOptions;
 import RenderTweaks.interfaces.IMinecraftClient;
-import RenderTweaks.option.RenderTweakGameOptions;
+import RenderTweaks.option.RenderTweaksGameOptions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin implements IMinecraftClient {
     @Final @Shadow public GameOptions options;
-    public RenderTweakGameOptions renderTweakGameOptions;
+    public RenderTweaksGameOptions renderTweaksGameOptions;
     @Shadow public ClientPlayerEntity player;
     @Shadow public abstract void setScreen(@Nullable Screen screen);
     public boolean optionScreen;
@@ -30,12 +30,12 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     private void handleKeyBindings(CallbackInfo ci) {
         while (((IGameOptions)options).getKeyOptionScreen().wasPressed()) {
             optionScreen = !optionScreen;
-            Screen op = new RenderOptionScreen(renderTweakGameOptions);
+            Screen op = new RenderOptionScreen(renderTweaksGameOptions);
             op.renderBackgroundTexture(0);
             setScreen(op);
         }
 
-        while (renderTweakGameOptions.keyFog.wasTripleKeyBindingPressed()) {
+        if (renderTweaksGameOptions.keyFog.isTripleKeyBindingPressed()) {
             keyFog = !keyFog;
             String fogToggled = "Toggled fog rendering: ";
             fogToggled = fogToggled + ((keyFog ? "ON" : "OFF"));
@@ -49,7 +49,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     }
 
     @Override
-    public void setRenderTweakGameOptions(RenderTweakGameOptions renderTweakGameOptions) {
-        this.renderTweakGameOptions = renderTweakGameOptions;
+    public void setRenderTweakGameOptions(RenderTweaksGameOptions renderTweaksGameOptions) {
+        this.renderTweaksGameOptions = renderTweaksGameOptions;
     }
 }

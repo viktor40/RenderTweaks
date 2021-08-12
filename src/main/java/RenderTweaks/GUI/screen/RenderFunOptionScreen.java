@@ -1,7 +1,7 @@
 package RenderTweaks.GUI.screen;
 
 import RenderTweaks.interfaces.IGameOptions;
-import RenderTweaks.option.RenderTweakOptions;
+import RenderTweaks.option.RenderTweaksOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -16,7 +16,7 @@ import net.minecraft.text.TranslatableText;
 
 @Environment(EnvType.CLIENT)
 public class RenderFunOptionScreen extends GameOptionsScreen {
-    private final Option[] OPTIONS = new Option[]{RenderTweakOptions.DERPY_CHICKEN};
+    private final Option[] OPTIONS = new Option[]{RenderTweaksOptions.DERPY_CHICKEN};
     private ButtonListWidget list;
 
     public RenderFunOptionScreen(Screen parent, GameOptions options) {

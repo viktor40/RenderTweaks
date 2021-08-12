@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Scanner;
 import java.util.Set;
 
+// TODO: Put RenderTweaksConfig into RenderTweaksGameOptions
 @Environment(EnvType.CLIENT)
 public class RenderTweaksConfig {
     static final Logger LOGGER = LogManager.getLogger();

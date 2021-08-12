@@ -9,13 +9,13 @@ import net.minecraft.client.option.Option;
 import net.minecraft.text.LiteralText;
 
 @Environment(EnvType.CLIENT)
-public abstract class RenderTweakOptions extends Option {
+public abstract class RenderTweaksOptions extends Option {
     public static final CyclingOption<Boolean> WEATHER;
     public static final CyclingOption<Boolean> DERPY_CHICKEN;
     public static final CyclingOption<Boolean> PARTICLES;
     public static final CyclingOption<Boolean> PARTICLES_BLOCK_BREAKING;
     public static final CyclingOption<Boolean> FOG;
-    public RenderTweakOptions(String key) {
+    public RenderTweaksOptions(String key) {
         super(key);
     }
 

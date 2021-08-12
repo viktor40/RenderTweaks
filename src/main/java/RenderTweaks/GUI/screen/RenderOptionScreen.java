@@ -1,6 +1,6 @@
 package RenderTweaks.GUI.screen;
 
-import RenderTweaks.option.RenderTweakGameOptions;
+import RenderTweaks.option.RenderTweaksGameOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -13,11 +13,11 @@ import net.minecraft.text.TranslatableText;
 @Environment(EnvType.CLIENT)
 public class RenderOptionScreen extends Screen {
     private final Option[] OPTIONS = new Option[]{};
-    public RenderTweakGameOptions renderTweakGameOptions;
+    public RenderTweaksGameOptions renderTweaksGameOptions;
 
-    public RenderOptionScreen(RenderTweakGameOptions renderTweakGameOptions) {
+    public RenderOptionScreen(RenderTweaksGameOptions renderTweaksGameOptions) {
         super(new TranslatableText("Render Tweaks Options"));
-        this.renderTweakGameOptions = renderTweakGameOptions;
+        this.renderTweaksGameOptions = renderTweaksGameOptions;
     }
 
     protected void init() {
@@ -52,7 +52,7 @@ public class RenderOptionScreen extends Screen {
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20, new TranslatableText("Keybinds"),
                 (button) -> {
                     if (this.client != null) {
-                        this.client.setScreen(new RenderKeyBindingScreen(this, this.client.options, this.renderTweakGameOptions));
+                        this.client.setScreen(new RenderKeyBindingScreen(this, this.client.options, this.renderTweaksGameOptions));
                     }
                 }));
 

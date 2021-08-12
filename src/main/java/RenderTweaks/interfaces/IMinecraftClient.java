@@ -1,8 +1,8 @@
 package RenderTweaks.interfaces;
 
-import RenderTweaks.option.RenderTweakGameOptions;
+import RenderTweaks.option.RenderTweaksGameOptions;
 
 public interface IMinecraftClient {
     boolean isOptionScreenOpen();
-    void setRenderTweakGameOptions(RenderTweakGameOptions renderTweakGameOptions);
+    void setRenderTweakGameOptions(RenderTweaksGameOptions renderTweaksGameOptions);
 }

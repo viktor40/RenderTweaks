@@ -1,7 +1,7 @@
 package RenderTweaks.GUI.screen;
 
 import RenderTweaks.interfaces.IGameOptions;
-import RenderTweaks.option.RenderTweakOptions;
+import RenderTweaks.option.RenderTweaksOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -16,7 +16,7 @@ import net.minecraft.text.TranslatableText;
 
 @Environment(EnvType.CLIENT)
 public class RenderEnvironmentOptionScreen extends GameOptionsScreen {
-    private final Option[] OPTIONS = new Option[]{RenderTweakOptions.WEATHER, RenderTweakOptions.FOG};
+    private final Option[] OPTIONS = new Option[]{RenderTweaksOptions.WEATHER, RenderTweaksOptions.FOG};
     private ButtonListWidget list;
 
     public RenderEnvironmentOptionScreen(Screen parent, GameOptions options) {
@@ -25,7 +25,7 @@ public class RenderEnvironmentOptionScreen extends GameOptionsScreen {
 
     protected void init() {
         this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
-        this.list.addSingleOptionEntry(RenderTweakOptions.GAMMA_OVERRIDE);
+        this.list.addSingleOptionEntry(RenderTweaksOptions.GAMMA_OVERRIDE);
         this.list.addAll(OPTIONS);
         this.addSelectableChild(this.list);
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.BACK,

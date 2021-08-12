@@ -1,7 +1,7 @@
 package RenderTweaks.GUI.screen;
 
 import RenderTweaks.interfaces.IGameOptions;
-import RenderTweaks.option.RenderTweakOptions;
+import RenderTweaks.option.RenderTweaksOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -16,7 +16,7 @@ import net.minecraft.text.TranslatableText;
 
 @Environment(EnvType.CLIENT)
 public class RenderParticleOptionScreen extends GameOptionsScreen {
-    private final Option[] OPTIONS = new Option[]{RenderTweakOptions.PARTICLES, RenderTweakOptions.PARTICLES_BLOCK_BREAKING};
+    private final Option[] OPTIONS = new Option[]{RenderTweaksOptions.PARTICLES, RenderTweaksOptions.PARTICLES_BLOCK_BREAKING};
     private ButtonListWidget list;
 
     public RenderParticleOptionScreen(Screen parent, GameOptions options) {
