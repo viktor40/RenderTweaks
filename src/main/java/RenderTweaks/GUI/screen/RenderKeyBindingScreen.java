@@ -15,7 +15,9 @@ import net.minecraft.text.TranslatableText;
 
 @Environment(EnvType.CLIENT)
 public class RenderKeyBindingScreen extends GameOptionsScreen {
-    public KeyBinding focusedBinding;
+    public KeyBinding focusedBinding1;
+    public KeyBinding focusedBinding2;
+    public KeyBinding focusedBinding3;
     private AdvancedControlListWidget keyBindingListWidget;
     private ButtonWidget resetButton;
 
