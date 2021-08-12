@@ -18,8 +18,12 @@ public abstract class RenderTweakOptions extends Option {
     public static final CyclingOption<Boolean> PARTICLES;
     public static final CyclingOption<Boolean> PARTICLES_BLOCK_BREAKING;
     public static final CyclingOption<Boolean> FOG;
-    public static final KeyBinding keyFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "RenderTweaks");
-    public static KeyBinding[] keysRender = (KeyBinding[]) ArrayUtils.addAll((Object[])(new KeyBinding[]{keyFog}));
+    public static final KeyBinding keyFog = new KeyBinding("Toggle Fog", GLFW.GLFW_KEY_G, "Environment");
+    public static final KeyBinding keyWeather = new KeyBinding("Toggle Weather", GLFW.GLFW_KEY_UNKNOWN, "Environment");
+    public static final KeyBinding keyParticles = new KeyBinding("Disable Particles", GLFW.GLFW_KEY_P, "Particles");
+    public static final KeyBinding keyParticlesBlockBreaking = new KeyBinding("Disable Block Breaking Particles", GLFW.GLFW_KEY_UNKNOWN, "Particles");
+    public static final KeyBinding keyDerpyChicken = new KeyBinding("Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, "Fun");
+    public static KeyBinding[] keysRender = (KeyBinding[]) ArrayUtils.addAll((Object[])(new KeyBinding[]{keyFog, keyWeather, keyParticles, keyParticlesBlockBreaking, keyDerpyChicken}));
 
     public RenderTweakOptions(String key) {
         super(key);
