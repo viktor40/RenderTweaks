@@ -21,7 +21,7 @@ public abstract class ChickenEntityMixin extends AnimalEntity {
     @Inject(method = "tickMovement", at = @At("RETURN"))
     private void derpyChickenHead(CallbackInfo ci) {
         GameOptions options = MinecraftClient.getInstance().options;
-        if (((IGameOptions)options).isDerpyChicken()) {
+        if (((IGameOptions)options).getRenderTweaksGameOptions().isDerpyChicken()) {
             this.setRotation(0,-90F);
         }
     }

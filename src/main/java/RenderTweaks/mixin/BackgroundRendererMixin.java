@@ -16,7 +16,7 @@ public class BackgroundRendererMixin {
     @Inject(method = "applyFog", at = @At("HEAD"), cancellable = true)
     private static void disableFog(Camera camera, FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
         GameOptions options = MinecraftClient.getInstance().options;
-        if (!((IGameOptions)options).isFogEnabled()) {
+        if (!((IGameOptions)options).getRenderTweaksGameOptions().isFogEnabled()) {
             ci.cancel();
         }
     }

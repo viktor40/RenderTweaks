@@ -30,8 +30,8 @@ public class RenderOtherOptionScreen extends GameOptionsScreen {
                 (button) -> {
                     if (this.client != null) {
                         this.client.setScreen(this.parent);
-                        ((IGameOptions)(this.client.options)).storeOptionChanges();
-                        ((IGameOptions)(this.client.options)).getConfig().writeConfigs();
+                        ((IGameOptions)(this.client.options)).getRenderTweaksGameOptions().storeOptionChanges();
+                        ((IGameOptions)(this.client.options)).getRenderTweaksGameOptions().writeConfigs();
                     }
                 }));
     }
@@ -46,8 +46,8 @@ public class RenderOtherOptionScreen extends GameOptionsScreen {
     public void onClose() {
         super.onClose();
         if (this.client != null) {
-            ((IGameOptions) (this.client.options)).storeOptionChanges();
-            ((IGameOptions) (this.client.options)).getConfig().writeConfigs();
+            ((IGameOptions) (this.client.options)).getRenderTweaksGameOptions().storeOptionChanges();
+            ((IGameOptions) (this.client.options)).getRenderTweaksGameOptions().writeConfigs();
         }
     }
 }

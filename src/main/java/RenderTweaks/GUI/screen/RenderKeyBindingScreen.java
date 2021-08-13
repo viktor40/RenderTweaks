@@ -117,7 +117,6 @@ public class RenderKeyBindingScreen extends GameOptionsScreen {
         drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 8, 16777215);
         boolean isDefaultKey = false;
 
-        // TODO: fix whatever this does
         for (TripleKeyBinding keyBinding : this.renderTweaksGameOptions.keysRender) {
             if (!keyBinding.isDefault()) {
                 isDefaultKey = true;

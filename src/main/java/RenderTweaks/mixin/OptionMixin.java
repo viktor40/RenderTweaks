@@ -35,10 +35,10 @@ public class OptionMixin {
     )
     private static Function<GameOptions, Double> lockIfFullBrightEnabledGetter(Function<GameOptions, Double> original) {
         return (gameOptions) -> {
-            if (((IGameOptions)gameOptions).gammaOverride() == 0.0D) {
+            if (((IGameOptions)gameOptions).getRenderTweaksGameOptions().gammaOverride() == 0.0D) {
                 return gameOptions.gamma;
             } else {
-                return ((IGameOptions)gameOptions).getPrevGamma();
+                return ((IGameOptions)gameOptions).getRenderTweaksGameOptions().getPrevGamma();
             }
         };
     }
@@ -60,11 +60,11 @@ public class OptionMixin {
     )
     private static BiConsumer<GameOptions, Double> lockIfFullBrightEnabledSetter(BiConsumer<GameOptions, Double> original) {
         return (gameOptions, gamma) -> {
-            if (((IGameOptions)gameOptions).gammaOverride() == 0.0D) {
+            if (((IGameOptions)gameOptions).getRenderTweaksGameOptions().gammaOverride() == 0.0D) {
                 gameOptions.gamma = gamma;
-                ((IGameOptions)gameOptions).setPrevGamma(gamma);
+                ((IGameOptions)gameOptions).getRenderTweaksGameOptions().setPrevGamma(gamma);
             } else {
-                gameOptions.gamma = ((IGameOptions)gameOptions).gammaOverride();
+                gameOptions.gamma = ((IGameOptions)gameOptions).getRenderTweaksGameOptions().gammaOverride();
             }
         };
     }
@@ -86,7 +86,7 @@ public class OptionMixin {
     )
     private static BiFunction<GameOptions, DoubleOption, Text> lockIfFullBrightEnabledDisplayStringSetter(BiFunction<GameOptions, DoubleOption, Text> original) {
         return (gameOptions, option) -> {
-            if (((IGameOptions)gameOptions).gammaOverride() == 0.0D) {
+            if (((IGameOptions)gameOptions).getRenderTweaksGameOptions().gammaOverride() == 0.0D) {
                 double d = option.getRatio(option.get(gameOptions));
                 if (d == 0.0D) {
                     return option.getGenericLabel(new TranslatableText("options.gamma.min"));

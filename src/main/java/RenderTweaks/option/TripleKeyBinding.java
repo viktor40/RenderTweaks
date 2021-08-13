@@ -3,6 +3,7 @@ package RenderTweaks.option;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
@@ -10,6 +11,12 @@ public class TripleKeyBinding {
     public KeyBinding keyBinding1;
     public KeyBinding keyBinding2;
     public KeyBinding keyBinding3;
+    private InputUtil.Key defaultKey1;
+    private InputUtil.Key defaultKey2;
+    private InputUtil.Key defaultKey3;
+    private InputUtil.Key key1;
+    private InputUtil.Key key2;
+    private InputUtil.Key key3;
     private final String translationKey;
     private final String category;
     private int timesPressed;
@@ -24,6 +31,9 @@ public class TripleKeyBinding {
         this.keyBinding1 = new KeyBinding(translationKey, codeKey1, category);
         this.keyBinding2 = new KeyBinding(translationKey, GLFW.GLFW_KEY_UNKNOWN, category);
         this.keyBinding3 = new KeyBinding(translationKey, GLFW.GLFW_KEY_UNKNOWN, category);
+        this.defaultKey1 =  keyBinding1.getDefaultKey();
+        this.defaultKey2 =  keyBinding1.getDefaultKey();
+        this.defaultKey3 =  keyBinding1.getDefaultKey();
     }
 
     public TripleKeyBinding(String translationKey, int codeKey1, int codeKey2, String category) {
@@ -32,6 +42,9 @@ public class TripleKeyBinding {
         this.keyBinding1 = new KeyBinding(translationKey, codeKey1, category);
         this.keyBinding2 = new KeyBinding(translationKey, codeKey2, category);
         this.keyBinding3 = new KeyBinding(translationKey, GLFW.GLFW_KEY_UNKNOWN, category);
+        this.defaultKey1 =  keyBinding1.getDefaultKey();
+        this.defaultKey2 =  keyBinding1.getDefaultKey();
+        this.defaultKey3 =  keyBinding1.getDefaultKey();
     }
 
     public TripleKeyBinding(String translationKey, int codeKey1, int codeKey2, int codeKey3, String category) {
@@ -40,6 +53,9 @@ public class TripleKeyBinding {
         this.keyBinding1 = new KeyBinding(translationKey, codeKey1, category);
         this.keyBinding2 = new KeyBinding(translationKey, codeKey2, category);
         this.keyBinding3 = new KeyBinding(translationKey, codeKey3, category);
+        this.defaultKey1 =  keyBinding1.getDefaultKey();
+        this.defaultKey2 =  keyBinding1.getDefaultKey();
+        this.defaultKey3 =  keyBinding1.getDefaultKey();
     }
 
     public boolean isTripleKeyBindingPressed() {
@@ -77,30 +93,32 @@ public class TripleKeyBinding {
         return this.keyBinding3;
     }
 
-    // TODO: create method to get the current key for each keybind
-    public int getKey1() {
-        return 0;
+    public InputUtil.Key getKey1() {
+        return key1;
     }
 
-    public int getKey2() {
-        return 0;
+    public InputUtil.Key getKey2() {
+        return key2;
     }
 
-    public int getKey3() {
-        return 0;
+    public InputUtil.Key getKey3() {
+        return key3;
     }
 
-    // TODO: create method to get the default key for each keybind
-    public int getDefaultKey1() {
-        return 0;
+    public InputUtil.Key getDefaultKey1() {
+        return defaultKey1;
     }
 
-    public int getDefaultKey2() {
-        return 0;
+    public InputUtil.Key getDefaultKey2() {
+        return defaultKey2;
     }
 
-    public int getDefaultKey3() {
-        return 0;
+    public InputUtil.Key getDefaultKey3() {
+        return defaultKey3;
+    }
+
+    public boolean isDefault() {
+        return ((key1 == defaultKey1) && (key2 == defaultKey2) && (key3 == defaultKey3));
     }
 
     public String getCategory() {
@@ -109,11 +127,6 @@ public class TripleKeyBinding {
 
     public String getTranslationKey() {
         return this.translationKey;
-    }
-
-    // TODO: Create isDefault method
-    public boolean isDefault() {
-        return false;
     }
 
     // TODO: create method to check if two key bindings are the same

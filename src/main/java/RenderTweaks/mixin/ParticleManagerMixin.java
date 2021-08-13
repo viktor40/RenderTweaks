@@ -19,7 +19,7 @@ public class ParticleManagerMixin {
     @Inject(method = "addBlockBreakParticles", at = @At("HEAD"), cancellable = true)
     private void cancelBreakParticles(BlockPos pos, BlockState state, CallbackInfo ci) {
         GameOptions options = MinecraftClient.getInstance().options;
-        if (!((IGameOptions)options).isParticlesBlockBreakingEnabled()) {
+        if (!((IGameOptions)options).getRenderTweaksGameOptions().isParticlesBlockBreakingEnabled()) {
             ci.cancel();
         }
     }
@@ -27,11 +27,11 @@ public class ParticleManagerMixin {
     @Inject(method = "addParticle(Lnet/minecraft/client/particle/Particle;)V", at = @At("HEAD"), cancellable = true)
     private void cancelParticles(Particle particle, CallbackInfo ci) {
         GameOptions options = MinecraftClient.getInstance().options;
-        if (!((IGameOptions)options).isWeatherEnabled() && (particle instanceof BlockLeakParticle.Dripping)) {
+        if (!((IGameOptions)options).getRenderTweaksGameOptions().isWeatherEnabled() && (particle instanceof BlockLeakParticle.Dripping)) {
             ci.cancel(); // Cancel block leak particlesEnabled from rain
-        } else if (!((IGameOptions)options).isParticlesBlockBreakingEnabled() && (particle instanceof CrackParticle)) {
+        } else if (!((IGameOptions)options).getRenderTweaksGameOptions().isParticlesBlockBreakingEnabled() && (particle instanceof CrackParticle)) {
             ci.cancel(); // Cancel block breaking particlesEnabled
-        } else if (!((IGameOptions)options).isParticlesEnabled()) {
+        } else if (!((IGameOptions)options).getRenderTweaksGameOptions().isParticlesEnabled()) {
             ci.cancel(); // Cancel all particlesEnabled
         }
     }

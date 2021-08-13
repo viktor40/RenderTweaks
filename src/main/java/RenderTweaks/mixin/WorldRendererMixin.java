@@ -16,7 +16,7 @@ public class WorldRendererMixin {
     @Inject(method = "tickRainSplashing", at = @At("HEAD"), cancellable = true)
     private void cancelRainSplashing(Camera camera, CallbackInfo ci) {
         GameOptions options = MinecraftClient.getInstance().options;
-        if (!((IGameOptions)options).isWeatherEnabled()) {
+        if (!((IGameOptions)options).getRenderTweaksGameOptions().isWeatherEnabled()) {
             ci.cancel();
         }
     }
@@ -24,7 +24,7 @@ public class WorldRendererMixin {
     @Inject(method = "renderWeather", at = @At("HEAD"), cancellable = true)
     private void cancelRenderWeather(LightmapTextureManager manager, float f, double d, double e, double g, CallbackInfo ci) {
         GameOptions options = MinecraftClient.getInstance().options;
-        if (!((IGameOptions)options).isWeatherEnabled()) {
+        if (!((IGameOptions)options).getRenderTweaksGameOptions().isWeatherEnabled()) {
             ci.cancel();
         }
     }
