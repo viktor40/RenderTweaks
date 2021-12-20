@@ -146,6 +146,9 @@ public class TripleControlListWidget extends ElementListWidget<TripleControlList
 
             this.resetButton = new ButtonWidget(0, 0, 50, 20, new TranslatableText("controls.reset"), (button) -> {
                 TripleControlListWidget.this.client.options.setKeyCode(binding1, binding1.getDefaultKey());
+                TripleControlListWidget.this.client.options.setKeyCode(binding2, binding2.getDefaultKey());
+                TripleControlListWidget.this.client.options.setKeyCode(binding3, binding3.getDefaultKey());
+                // TODO: make sure the function below executes properly
                 KeyBinding.updateKeysByCode();
             }) {
                 protected MutableText getNarrationMessage() {

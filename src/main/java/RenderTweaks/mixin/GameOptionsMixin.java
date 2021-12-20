@@ -26,20 +26,22 @@ public abstract class GameOptionsMixin implements IGameOptions {
     @Shadow protected MinecraftClient client;
     public GameOptions thisGameOptions = (GameOptions)(Object)this;
     public RenderTweaksGameOptions renderTweaksGameOptions;
-    public KeyBinding keyOptionScreen = new KeyBinding("Open Option Screen", GLFW.GLFW_KEY_O, "RenderTweaks");
-
-    @Inject(method = "<init>", at = @At(value = "RETURN"))
-    private void onGameOptionsInitInjectAtTail(MinecraftClient client, File optionsFile, CallbackInfo ci) {
-        Option.RENDER_DISTANCE.setMax(64);
-        this.renderTweaksGameOptions = new RenderTweaksGameOptions(this.client, new File(this.client.runDirectory, "RenderTweakoptions.txt"));
-        ((IMinecraftClient)(this.client)).setRenderTweakGameOptions(this.renderTweaksGameOptions);
-    }
+    public KeyBinding keyOptionScreen;
 
     @Inject(method = "load", at = @At(value = "HEAD"))
     private void onLoadInjectAtHead(CallbackInfo ci) {
-        keysAll = ArrayUtils.add(keysAll, keyOptionScreen);
-        renderTweaksGameOptions.loadConfigs();
-        renderTweaksGameOptions.assignOptions();
+
+    }
+
+    @Inject(method = "<init>", at = @At(value = "FIELD", target = "Lnet/minecraft/client/option/GameOptions;syncChunkWrites:Z"))
+    private void onGameOptionsInitInjectAtTail(MinecraftClient client, File optionsFile, CallbackInfo ci) {
+        Option.RENDER_DISTANCE.setMax(64);
+        this.renderTweaksGameOptions = new RenderTweaksGameOptions(this.client, new File(this.client.runDirectory, "RenderTweakOptions.txt"));
+        ((IMinecraftClient)(this.client)).setRenderTweakGameOptions(this.renderTweaksGameOptions);
+        this.renderTweaksGameOptions.loadConfigs();
+        this.renderTweaksGameOptions.assignOptions();
+        this.keyOptionScreen = new KeyBinding("Open Option Screen", GLFW.GLFW_KEY_O, "RenderTweaks");
+        this.keysAll = ArrayUtils.add(keysAll, keyOptionScreen);
     }
 
     @Override

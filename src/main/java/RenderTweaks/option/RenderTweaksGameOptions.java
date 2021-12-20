@@ -39,17 +39,16 @@ public class RenderTweaksGameOptions {
     public boolean particlesBlockBreaking;
     public boolean derpyChicken;
     public double gammaOverride = 0.0D;
-    public double prevGamma;
+    public double prevGamma = 0.0D;
 
     public RenderTweaksGameOptions(MinecraftClient client, File f) {
         this.client = client;
         this.gameOptions = client.options;
-        this.prevGamma = gameOptions.gamma;
-        this.keyFog = new TripleKeyBinding("Toggle Fog", GLFW.GLFW_KEY_LEFT_CONTROL, GLFW.GLFW_KEY_G, "Environment");
-        this.keyWeather = new TripleKeyBinding("Toggle Weather", GLFW.GLFW_KEY_UNKNOWN, "Environment");
-        this.keyParticles = new TripleKeyBinding("Disable Particles", GLFW.GLFW_KEY_P, "Particles");
-        this.keyParticlesBlockBreaking = new TripleKeyBinding("Disable Block Breaking Particles", GLFW.GLFW_KEY_UNKNOWN, "Particles");
-        this.keyDerpyChicken = new TripleKeyBinding("Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, "Fun");
+        this.keyFog = new TripleKeyBinding("Toggle Fog", GLFW.GLFW_KEY_H, GLFW.GLFW_KEY_G, TripleKeyBinding.ENVIRONMENT_CATEGORY);
+        this.keyWeather = new TripleKeyBinding("Toggle Weather", GLFW.GLFW_KEY_UNKNOWN, TripleKeyBinding.ENVIRONMENT_CATEGORY);
+        this.keyParticles = new TripleKeyBinding("Disable Particles", GLFW.GLFW_KEY_P, TripleKeyBinding.PARTICLES_CATEGORY);
+        this.keyParticlesBlockBreaking = new TripleKeyBinding("Disable Block Breaking Particles", GLFW.GLFW_KEY_UNKNOWN, TripleKeyBinding.PARTICLES_CATEGORY);
+        this.keyDerpyChicken = new TripleKeyBinding("Derpy Chicken", GLFW.GLFW_KEY_UNKNOWN, TripleKeyBinding.FUN_CATEGORY);
         this.keysRender = (TripleKeyBinding[])ArrayUtils.addAll((Object[])(new TripleKeyBinding[]{this.keyFog, this.keyWeather, this.keyParticles, this.keyParticlesBlockBreaking, this.keyDerpyChicken}));
         this.initOptionMaps();
 
@@ -102,23 +101,27 @@ public class RenderTweaksGameOptions {
     }
 
 
-    // TODO: Create method to write non default key bindings to a file
+    // TODO: Create method to load from options file
     public void load() {
 
     }
 
+    // TODO: Create method to write non default key bindings to a file
     public void write() {
 
     }
 
+    // TODO: Create method to write updated options to the optionMaps
     public void writeOptionMaps() {
 
     }
 
+    // TODO: Create method to assign updated keyBindings
     public void writeKeyBindings() {
 
     }
 
+    // TODO: Write getters and setters for booleanOptions and doubleOptions
     public boolean getBooleanOption(String key) {
         return false;
     }
@@ -127,7 +130,7 @@ public class RenderTweaksGameOptions {
         return 0.0D;
     }
 
-    public void settBooleanOption(String key) {
+    public void setBooleanOption(String key) {
 
     }
 
@@ -135,6 +138,7 @@ public class RenderTweaksGameOptions {
 
     }
 
+    // TODO: Move to functions above
     public void loadConfigs() {
         try {
             if (!this.optionFile.exists()) {
@@ -169,6 +173,7 @@ public class RenderTweaksGameOptions {
         }
     }
 
+    // TODO: Move to functions above
     public void writeConfigs() {
         Set<String> booleanOptionKeys = this.booleanOptions.keySet();
         Set<String> doubleOptionKeys = this.doubleOptions.keySet();

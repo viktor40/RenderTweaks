@@ -28,9 +28,9 @@ public class TripleKeyBinding {
     public TripleKeyBinding(String translationKey, int codeKey1, String category) {
         this.translationKey = translationKey;
         this.category = category;
-        this.keyBinding1 = new KeyBinding(translationKey, codeKey1, category);
-        this.keyBinding2 = new KeyBinding(translationKey, GLFW.GLFW_KEY_UNKNOWN, category);
-        this.keyBinding3 = new KeyBinding(translationKey, GLFW.GLFW_KEY_UNKNOWN, category);
+        this.keyBinding1 = new KeyBinding(translationKey + ".1", codeKey1, category);
+        this.keyBinding2 = new KeyBinding(translationKey + ".2", GLFW.GLFW_KEY_UNKNOWN, category);
+        this.keyBinding3 = new KeyBinding(translationKey + ".3", GLFW.GLFW_KEY_UNKNOWN, category);
         this.defaultKey1 =  keyBinding1.getDefaultKey();
         this.defaultKey2 =  keyBinding1.getDefaultKey();
         this.defaultKey3 =  keyBinding1.getDefaultKey();
@@ -39,9 +39,9 @@ public class TripleKeyBinding {
     public TripleKeyBinding(String translationKey, int codeKey1, int codeKey2, String category) {
         this.translationKey = translationKey;
         this.category = category;
-        this.keyBinding1 = new KeyBinding(translationKey, codeKey1, category);
-        this.keyBinding2 = new KeyBinding(translationKey, codeKey2, category);
-        this.keyBinding3 = new KeyBinding(translationKey, GLFW.GLFW_KEY_UNKNOWN, category);
+        this.keyBinding1 = new KeyBinding(translationKey + ".1", codeKey1, category);
+        this.keyBinding2 = new KeyBinding(translationKey + ".2", codeKey2, category);
+        this.keyBinding3 = new KeyBinding(translationKey + ".3", GLFW.GLFW_KEY_UNKNOWN, category);
         this.defaultKey1 =  keyBinding1.getDefaultKey();
         this.defaultKey2 =  keyBinding1.getDefaultKey();
         this.defaultKey3 =  keyBinding1.getDefaultKey();
@@ -68,6 +68,18 @@ public class TripleKeyBinding {
                         && keyBinding3Pressed
                         && !(this.keyBinding1.isUnbound() && this.keyBinding2.isUnbound() && this.keyBinding3.isUnbound())
         );
+
+        if (this.keyBinding1.isPressed() && !this.keyBinding1.isUnbound()) {
+            System.out.println("key 1 pressed");
+        }
+
+        if (this.keyBinding2.isPressed() && !this.keyBinding2.isUnbound()) {
+            System.out.println("key 2 pressed");
+        }
+
+        if (this.keyBinding3.isPressed() && !this.keyBinding3.isUnbound()) {
+            System.out.println("key 3 pressed");
+        }
 
         if (this.timesPressed == 0 && isPressed) {
             this.timesPressed++;
